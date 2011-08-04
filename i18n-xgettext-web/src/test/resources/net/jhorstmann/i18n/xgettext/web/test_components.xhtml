@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:tr="http://jhorstmann.net/taglib/i18n" xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title><tr:tr context="Hello World (title)">Hello World</tr:tr></title>
+    </head>
+    <body>
+        <h1><tr:tr>Hello World</tr:tr></h1>
+        <h2>
+            <tr:tr num="1">
+                <tr:context>Hello World (plural)</tr:context>
+                <tr:plural>Hello Worlds</tr:plural>
+                <tr:comment>This is a comment</tr:comment>
+                <f:param value="42"/>
+                Hello World
+            </tr:tr>
+        </h2>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:tr="http://jhorstmann.net/taglib/i18n">
+    <head>
+        <title>#{tr:trc("Hello World (title)", "Hello World")}</title>
+    </head>
+    <body>
+        <h1>#{tr:tr("Hello World")}</h1>
+        <h2>#{tr:trn("This is a test", "These are {0} tests", 2, 2)}</h2>
+        <h2>#{tr:trnc("This is a test (with context)", "This is a test", "These are {0} tests", 2, 2)}</h2>
+        <h2>#{tr:tr("This is a test with parameters {0}, {1} and {2}", 1, 2, 3)}</h2>
+    </body>
+</html>

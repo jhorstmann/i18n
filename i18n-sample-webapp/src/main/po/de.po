@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-30 17:52+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jörn Horstmann <jh@jhorstmann.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+
+#: net/jhorstmann/i18n/sample/HelloWorld.getMessage()Ljava/lang/String;
+msgid "Hello World From Managed Bean"
+msgstr "Hallo Welt von einer gemanagten Bohne"
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:13
+msgctxt "Hello World (Title)"
+msgid "Hello Internationalized World!"
+msgstr "Hallo internationalisierte Welt!"
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:18
+msgctxt "Hello World (Header)"
+msgid "Hello Internationalized World!"
+msgstr "Hallo internationalisierte Welt!"
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:23
+msgid "Simple message"
+msgstr "Einfache Nachricht"
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:37
+msgctxt "Message with context"
+msgid "Message with context"
+msgstr "Nachricht mit Kontext"
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:43
+msgid "One Message"
+msgid_plural "Several Messages"
+msgstr[0] "Eine Nachricht"
+msgstr[1] "Mehrere Nachrichten"
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:50
+msgid "{0} Message"
+msgid_plural "{0} Messages"
+msgstr[0] "{0} Nachricht"
+msgstr[1] "{0} Nachrichten"

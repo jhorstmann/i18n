@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-30 17:52+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+
+
+#: net/jhorstmann/i18n/sample/HelloWorld.getMessage()Ljava/lang/String;
+msgid "Hello World From Managed Bean"
+msgstr ""
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:13
+msgctxt "Hello World (Title)"
+msgid "Hello Internationalized World!"
+msgstr ""
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:18
+msgctxt "Hello World (Header)"
+msgid "Hello Internationalized World!"
+msgstr ""
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:23
+msgid "Simple message"
+msgstr ""
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:37
+msgctxt "Message with context"
+msgid "Message with context"
+msgstr ""
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:43
+msgid "One Message"
+msgid_plural "Several Messages"
+msgstr[0] "One Message"
+msgstr[1] "Several Messages"
+
+#: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:50
+msgid "{0} Message"
+msgid_plural "{0} Messages"
+msgstr[0] "{0} Message"
+msgstr[1] "{0} Messages"

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:tr="http://jhorstmann.net/taglib/i18n">
+<f:view>
+    <f:metadata>
+        <f:viewParam name="num" value="#{helloWorld.num}"/>
+    </f:metadata>
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>#{tr:trc('Hello World (Title)', 'Hello Internationalized World!')}</title>
+    </h:head>
+
+    <h:body>
+        <h1>
+            <tr:tr context="Hello World (Header)">Hello Internationalized World!</tr:tr>
+        </h1>
+        <h2>#{helloWorld.message}</h2>
+
+        <h2><span jsfc="h:outputText" value="#{helloWorld.message}"></span></h2>
+
+        <h2>
+            <tr:tr>Simple message</tr:tr>
+        </h2>
+        <h3><span jsfc="tr:tr">Simple message</span></h3>
+
+        <h2>
+            <tr:tr context="Message with context">Message with context</tr:tr>
+        </h2>
+        <h3>
+            <tr:tr context="Message with context" message="Message with context"/>
+        </h3>
+        <h3>
+            <tr:tr>
+                <tr:context>Message with context</tr:context>
+                Message with context
+            </tr:tr>
+        </h3>
+        <h3>
+            <tr:tr num="#{1}" message="One Message" plural="Several Messages"></tr:tr>
+        </h3>
+        <h3>
+            <tr:tr num="#{2}" message="One Message" plural="Several Messages"></tr:tr>
+        </h3>
+        <h3>
+            <tr:tr num="#{helloWorld.num}">
+                <tr:plural>{0} Messages</tr:plural>
+                <f:param value="#{helloWorld.num}"/>
+                {0} Message
+            </tr:tr>
+        </h3>
+    </h:body>
+</f:view>
+</html>

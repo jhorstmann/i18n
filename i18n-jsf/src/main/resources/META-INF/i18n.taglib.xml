@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib version="2.0"
+                xmlns="http://java.sun.com/xml/ns/javaee"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
+    <namespace>http://jhorstmann.net/taglib/i18n</namespace>
+    <function>
+        <function-name>mark</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String mark(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>tr</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String tr(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>tr1</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String tr(java.lang.String, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>tr2</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String tr(java.lang.String, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>tr3</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String tr(java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>tr4</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String tr(java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trc</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trc(java.lang.String, java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>trc1</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trc(java.lang.String, java.lang.String, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trc2</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trc(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trc3</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trc(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trc4</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trc(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trn</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trn(java.lang.String, java.lang.String, long)</function-signature>
+    </function>
+    <function>
+        <function-name>trn1</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trn(java.lang.String, java.lang.String, long, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trn2</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trn(java.lang.String, java.lang.String, long, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trn3</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trn(java.lang.String, java.lang.String, long, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trn4</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trn(java.lang.String, java.lang.String, long, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trnc</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trnc(java.lang.String, java.lang.String, java.lang.String, long)</function-signature>
+    </function>
+    <function>
+        <function-name>trnc1</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trnc(java.lang.String, java.lang.String, java.lang.String, long, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trnc2</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trnc(java.lang.String, java.lang.String, java.lang.String, long, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trnc3</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trnc(java.lang.String, java.lang.String, java.lang.String, long, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <function-name>trnc4</function-name>
+        <function-class>net.jhorstmann.i18n.jsf.Functions</function-class>
+        <function-signature>java.lang.String trnc(java.lang.String, java.lang.String, java.lang.String, long, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+    </function>
+    <tag>
+        <tag-name>tr</tag-name>
+        <component>
+            <component-type>net.jhorstmann.i18n.jsf.TranslationComponent</component-type>
+            <handler-class>net.jhorstmann.i18n.jsf.TranslationTagHandler</handler-class>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>context</tag-name>
+        <handler-class>net.jhorstmann.i18n.jsf.ContextTagHandler</handler-class>
+    </tag>
+    <tag>
+        <tag-name>plural</tag-name>
+        <handler-class>net.jhorstmann.i18n.jsf.PluralTagHandler</handler-class>
+    </tag>
+    <tag>
+        <tag-name>comment</tag-name>
+        <handler-class>net.jhorstmann.i18n.jsf.CommentTagHandler</handler-class>
+    </tag>
+</facelet-taglib>
