@@ -65,6 +65,8 @@ public class ExtractorHandler extends NestedContentHandler implements Locator, N
         }
         if (plural != null && plural.length() > 0) {
             msg.setMsgidPlural(plural);
+            msg.addMsgstrPlural(message, 0);
+            msg.addMsgstrPlural(plural, 1);
         }
         if (comment != null && comment.length() > 0) {
             msg.addExtractedComment(comment);
