@@ -47,7 +47,7 @@ abstract class AbstractGettextMojo extends AbstractMojo {
      */
     File keysFile;
     /**
-     * @parameter default-value="${false}"
+     * @parameter default-value="${false}" expression="#{gettext.update}"
      */
     boolean update;
     /**
