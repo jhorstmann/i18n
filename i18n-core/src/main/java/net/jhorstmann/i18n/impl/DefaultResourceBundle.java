@@ -45,7 +45,7 @@ public class DefaultResourceBundle {
                 InputStream in = null;
                 try {
                     in = url.openStream();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in, "utf-8"));
                     String line = br.readLine();
                     if (line != null) {
                         return line;
