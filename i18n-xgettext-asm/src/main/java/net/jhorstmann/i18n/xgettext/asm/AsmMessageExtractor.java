@@ -26,23 +26,23 @@ public class AsmMessageExtractor implements MessageExtractor {
     static {
         List<MessageFunction> functions = new ArrayList<MessageFunction>();
         String namespace = I18N.class.getName();
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String tr(String message, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String tr(Locale, String message, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String tr(ResourceBundle, String message, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String tr(String message, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String tr(Locale, String message, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String tr(ResourceBundle, String message, Object...)"));
 
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trc(String context, String message, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trc(Locale, String context, String message, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trc(ResourceBundle, String context, String message, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trc(String context, String message, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trc(Locale, String context, String message, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trc(ResourceBundle, String context, String message, Object...)"));
         
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trn(String message, String plural, long, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trn(Locale, String message, String plural, long, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trn(ResourceBundle, String message, String plural, long, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trn(String message, String plural, long, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trn(Locale, String message, String plural, long, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trn(ResourceBundle, String message, String plural, long, Object...)"));
         
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trnc(String context, String message, String plural, long, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trnc(Locale, String context, String message, String plural, long, Object...)"));
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String trnc(ResourceBundle, String context, String message, String plural, long, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trnc(String context, String message, String plural, long, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trnc(Locale, String context, String message, String plural, long, Object...)"));
+        functions.add(MessageFunction.fromJava(namespace, "String trnc(ResourceBundle, String context, String message, String plural, long, Object...)"));
 
-        functions.add(MessageFunction.parseJavaSignature(namespace, "String mark(String message)"));
+        functions.add(MessageFunction.fromJava(namespace, "String mark(String message)"));
 
         DEFAULT_MESSAGE_FUNCTIONS = Collections.unmodifiableList(functions);
     }

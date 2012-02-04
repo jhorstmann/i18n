@@ -11,7 +11,7 @@ public class JavaSignatureTest {
     
     @Test
     public void testNoArgs() {
-        MessageFunction fn = MessageFunction.parseJavaSignature(CLS, "tr()");
+        MessageFunction fn = MessageFunction.fromJava(CLS, "tr()");
 
         Assert.assertEquals(NS, fn.getNamespace());
         Assert.assertEquals(FN, fn.getName());
@@ -23,7 +23,7 @@ public class JavaSignatureTest {
     
     @Test
     public void testStringArg() {
-        MessageFunction fn = MessageFunction.parseJavaSignature(CLS, "tr(java.lang.String message)");
+        MessageFunction fn = MessageFunction.fromJava(CLS, "tr(java.lang.String message)");
 
         Assert.assertEquals(NS, fn.getNamespace());
         Assert.assertEquals(FN, fn.getName());
@@ -33,7 +33,7 @@ public class JavaSignatureTest {
 
     @Test
     public void testStringArrayArg() {
-        MessageFunction fn = MessageFunction.parseJavaSignature(CLS, "tr(java.lang.String[][] test)");
+        MessageFunction fn = MessageFunction.fromJava(CLS, "tr(java.lang.String[][] test)");
 
         Assert.assertEquals(NS, fn.getNamespace());
         Assert.assertEquals(FN, fn.getName());
@@ -43,7 +43,7 @@ public class JavaSignatureTest {
 
     @Test
     public void testStringArgs() {
-        MessageFunction fn = MessageFunction.parseJavaSignature(CLS, "tr(java.lang.String context, java.lang.String message)");
+        MessageFunction fn = MessageFunction.fromJava(CLS, "tr(java.lang.String context, java.lang.String message)");
 
         Assert.assertEquals(NS, fn.getNamespace());
         Assert.assertEquals(FN, fn.getName());
@@ -54,7 +54,7 @@ public class JavaSignatureTest {
 
     @Test
     public void testVarArgs() {
-        MessageFunction fn = MessageFunction.parseJavaSignature(CLS, "tr(java.lang.String message, java.lang.String... params)");
+        MessageFunction fn = MessageFunction.fromJava(CLS, "tr(java.lang.String message, java.lang.String... params)");
 
         Assert.assertEquals(NS, fn.getNamespace());
         Assert.assertEquals(FN, fn.getName());
@@ -64,11 +64,21 @@ public class JavaSignatureTest {
 
     @Test
     public void testReturnType() {
-        MessageFunction fn = MessageFunction.parseJavaSignature(CLS, "String tr(java.lang.String message, java.lang.String... params)");
+        MessageFunction fn = MessageFunction.fromJava(CLS, "String tr(java.lang.String message, java.lang.String... params)");
 
         Assert.assertEquals(NS, fn.getNamespace());
         Assert.assertEquals(FN, fn.getName());
         Assert.assertEquals("(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/String;", fn.getDescription());
+        Assert.assertEquals(0, fn.getMessageIndex());
+    }
+
+    @Test
+    public void testVoidReturnType() {
+        MessageFunction fn = MessageFunction.fromJava(CLS, "void tr(java.lang.String message, java.lang.String... params)");
+
+        Assert.assertEquals(NS, fn.getNamespace());
+        Assert.assertEquals(FN, fn.getName());
+        Assert.assertEquals("(Ljava/lang/String;[Ljava/lang/String;)V", fn.getDescription());
         Assert.assertEquals(0, fn.getMessageIndex());
     }
     

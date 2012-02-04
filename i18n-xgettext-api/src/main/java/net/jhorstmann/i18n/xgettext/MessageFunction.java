@@ -45,7 +45,7 @@ public class MessageFunction {
         return new MessageFunction(namespace, methodName, null, messageIndex, contextIndex, pluralIndex, length);
     }
 
-    public static MessageFunction parseJavaSignature(String className, String signature) {
+    public static MessageFunction fromJava(String className, String signature) {
         int idx = validateParamIdx(signature);
         String[] typeAndName = signature.substring(0, idx).split("\\s+");
         String returnType, methodName;
@@ -56,7 +56,7 @@ public class MessageFunction {
             returnType = typeAndName[0];
             methodName = typeAndName[1];
         }
-        return fromJavaSignature(className, returnType, methodName, signature.substring(idx + 1, signature.length() - 1));
+        return fromJava(className, returnType, methodName, signature.substring(idx + 1, signature.length() - 1));
     }
 
     private static void appendInternalName(StringBuilder desc, String javaType) {
@@ -101,7 +101,7 @@ public class MessageFunction {
         }
     }
 
-    public static MessageFunction fromJavaSignature(String className, String returnType, String methodName, String methodParams) {
+    private static MessageFunction fromJava(String className, String returnType, String methodName, String methodParams) {
         String namespace = className.replace('.', '/');
         int messageIndex = -1;
         int contextIndex = -1;
