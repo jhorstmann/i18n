@@ -23,6 +23,31 @@ ResourceBundle.
 There are specialized editors for editing the ".mo" files, which can remember
 already translated strings and contain databases of repeatedly used words.
 
+Why use gettext instead of property bundles?
+--------------------------------------------
+
+Translation in java is usually done using property files, which map some
+artificial key to the corresponding translation. In my opinion this approach
+has several drawbacks.
+
+  * The need to invent a key for each message interrupts the programmers flow.
+    Sometimes it is already pretty hard to think of meaningful variable names,
+    having to think about something totally unrelated to the code, like
+    translation.
+
+  * The plural handling in gettext is superior for some languages having more
+    than two [plural forms][1]. For simple cases pluralization can be done using
+    `ChoiceFormat`, but languages like Polish require more complicated rules.
+    Additionally, the syntax for `ChoiceFormat` is probably to complicated for
+    non-developers.
+
+  * There are specialized editors for editing gettext files, which are also
+    usable by non-programmers. These editors have extensive features to support
+    the translator, like remembering already translated string or containing a
+    terminology database.
+
+ [1]: http://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/Plural-forms.html
+
 How to use this framework in java?
 ----------------------------------
 
@@ -105,3 +130,5 @@ overridden in `web.xml` using the `net.jhorstmann.i18n.ResourceBundleVar`
 context parameter. Alternatively, the ResourceBundle can also be specified in
 `web.xml` instead of `faces-config.xml` by setting the
 `net.jhorstmann.i18n.ResourceBundle` context parameter.
+
+
