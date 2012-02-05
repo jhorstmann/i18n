@@ -1,5 +1,5 @@
-Gettext based framework for i18n in Java and JSF applications
-=============================================================
+A gettext based framework for i18n in Java and JSF applications
+===============================================================
 
 What is gettext?
 ----------------
@@ -86,7 +86,8 @@ be executed manually.
         </executions>
     </plugin>
 
-A JSF application has to declare its supported locale and the ResourceBundle to use in `faces-config.xml`:
+A JSF application has to declare its supported locale and the ResourceBundle to
+use in `faces-config.xml`:
 
     <application>
         <locale-config>
@@ -102,5 +103,5 @@ A JSF application has to declare its supported locale and the ResourceBundle to 
 The ResourceBundle should be named "i18n" by default, this name can be
 overridden in `web.xml` using the `net.jhorstmann.i18n.ResourceBundleVar`
 context parameter. Alternatively, the ResourceBundle can also be specified in
-`web.xml` instead of `faces-config.xml` by setting the `net.jhorstmann.i18n.ResourceBundle`
-context parameter.
+`web.xml` instead of `faces-config.xml` by setting the
+`net.jhorstmann.i18n.ResourceBundle` context parameter.
