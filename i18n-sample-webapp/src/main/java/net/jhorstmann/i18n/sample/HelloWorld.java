@@ -19,4 +19,8 @@ public class HelloWorld {
     public String getMessage() {
         return I18N.tr("Hello World From Managed Bean");
     }
+    
+    public String getPluralMessage() {
+        return I18N.trn("{0} Test", "{0} Tests", num, num);
+    }
 }

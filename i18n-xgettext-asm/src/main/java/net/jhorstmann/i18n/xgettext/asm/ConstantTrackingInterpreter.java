@@ -356,6 +356,7 @@ public class ConstantTrackingInterpreter implements Interpreter {
             }
             if (plural != null) {
                 msg.setMsgidPlural(plural);
+                msg.addMsgstrPlural("", 0);
             }
             if (sourceReference != null) {
                 msg.addSourceReference(sourceReference);
