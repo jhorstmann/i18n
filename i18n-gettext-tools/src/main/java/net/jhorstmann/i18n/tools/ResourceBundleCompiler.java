@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import net.jhorstmann.i18n.tools.expr.Expression;
 import org.fedorahosted.tennera.jgettext.Catalog;
@@ -37,25 +36,15 @@ public class ResourceBundleCompiler {
         }
     }
 
-    static String toClassName(String baseName, Locale locale) {
-        return baseName + "_" + locale;
+    public static byte[] compile(Catalog catalog, String className) {
+        return compile(catalog, DEFAULT_PARENT_CLASS, className);
     }
 
-    public static byte[] compile(Catalog catalog, String baseName, Locale locale) {
-        return compile(catalog, DEFAULT_PARENT_CLASS, baseName, locale);
+    public static void compileFile(Catalog catalog, String className, File dir) throws IOException {
+        compileFile(catalog, DEFAULT_PARENT_CLASS, className, dir);
     }
 
-    public static byte[] compile(Catalog catalog, String parentClassName, String baseName, Locale locale) {
-        String className = toClassName(baseName, locale);
-        return compile(catalog, parentClassName, className);
-    }
-
-    public static void compileFile(Catalog catalog, String baseName, Locale locale, File dir) throws IOException {
-        compileFile(catalog, DEFAULT_PARENT_CLASS, baseName, locale, dir);
-    }
-
-    public static void compileFile(Catalog catalog, String parentClassName, String baseName, Locale locale, File dir) throws IOException {
-        String className = toClassName(baseName, locale);
+    public static void compileFile(Catalog catalog, String parentClassName, String className, File dir) throws IOException {
         File file = new File(dir, className.replace('.', '/') + ".class");
         byte[] bytes = compile(catalog, parentClassName, className);
         FileOutputStream fos = new FileOutputStream(file);
@@ -66,17 +55,16 @@ public class ResourceBundleCompiler {
         }
     }
 
-    static Class<ResourceBundle> compileAndLoad(Catalog catalog, String baseName, Locale locale) throws InstantiationException, IllegalAccessException {
-        return compileAndLoad(catalog, DEFAULT_PARENT_CLASS, baseName, locale, null);
+    static Class<ResourceBundle> compileAndLoad(Catalog catalog, String className) throws InstantiationException, IllegalAccessException {
+        return compileAndLoad(catalog, DEFAULT_PARENT_CLASS, className, null);
     }
 
-    static Class<ResourceBundle> compileAndLoad(Catalog catalog, String parentClassName, String baseName, Locale locale, ClassLoader parent) throws InstantiationException, IllegalAccessException {
-        String className = toClassName(baseName, locale);
+    static Class<ResourceBundle> compileAndLoad(Catalog catalog, String parentClassName, String className, ClassLoader parent) throws InstantiationException, IllegalAccessException {
         byte[] bytes = compile(catalog, parentClassName, className);
         return (Class<ResourceBundle>) new MyClassLoader(parent).defineClass(className, bytes);
     }
 
-    static byte[] compile(Catalog catalog, String parentClassName, String className) {
+    public static byte[] compile(Catalog catalog, String parentClassName, String className) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
         CheckClassAdapter ca = new CheckClassAdapter(cw, true);
         compile(ca, catalog, parentClassName, className);

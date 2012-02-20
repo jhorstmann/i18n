@@ -2,7 +2,6 @@ package net.jhorstmann.i18n.tools;
 
 import java.lang.reflect.Field;
 import java.util.Enumeration;
-import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import junit.framework.Assert;
@@ -48,7 +47,7 @@ public class ResourceBundleCompilerTest {
     public void testCompileResourceBundle() throws InstantiationException, IllegalAccessException, NoSuchFieldException {
         Catalog catalog = createCatalog();
         String parentClassName = GettextResourceBundle.class.getName();
-        Class<ResourceBundle> bundleClass = ResourceBundleCompiler.compileAndLoad(catalog, parentClassName, "net.jhorstmann.i18n.tools.TestResourceBundle", Locale.GERMANY, getClass().getClassLoader());
+        Class<ResourceBundle> bundleClass = ResourceBundleCompiler.compileAndLoad(catalog, parentClassName, "net.jhorstmann.i18n.tools.TestResourceBundle_de", getClass().getClassLoader());
         {
             Field messagesField = bundleClass.getDeclaredField("messages");
             messagesField.setAccessible(true);
