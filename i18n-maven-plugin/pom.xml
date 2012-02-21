@@ -12,6 +12,11 @@
     <dependencies>
         <dependency>
             <groupId>net.jhorstmann.i18n</groupId>
+            <artifactId>i18n-gettext-tools</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jhorstmann.i18n</groupId>
             <artifactId>i18n-xgettext-api</artifactId>
             <version>${project.version}</version>
         </dependency>
