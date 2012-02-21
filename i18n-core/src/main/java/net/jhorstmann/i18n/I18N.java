@@ -64,7 +64,7 @@ public class I18N {
     }
 
     public static String tr(ResourceBundle bundle, String message, Object... params) {
-        return format(bundle, GettextResource.gettext(bundle, message), params);
+        return format(bundle, GettextResourceBundle.gettext(bundle, message), params);
     }
 
     public static String trc(String context, String message, Object... params) {
@@ -76,7 +76,7 @@ public class I18N {
     }
     
     public static String trc(ResourceBundle bundle, String context, String message, Object... params) {
-        return format(bundle, GettextResource.pgettext(bundle, context, message), params);
+        return format(bundle, GettextResourceBundle.pgettext(bundle, context, message), params);
     }
     
     public static String trn(String message, String plural, long n, Object... params) {
@@ -88,7 +88,7 @@ public class I18N {
     }
 
     public static String trn(ResourceBundle bundle, String message, String plural, long n, Object... params) {
-        String text = GettextResource.ngettext(bundle, message, plural, n);
+        String text = GettextResourceBundle.ngettext(bundle, message, plural, n);
         return format(bundle, text, params);
     }
     
@@ -101,7 +101,7 @@ public class I18N {
     }
 
     public static String trnc(ResourceBundle bundle, String context, String message, String plural, long n, Object... params) {
-        String text = GettextResource.npgettext(bundle, context, message, plural, n);
+        String text = GettextResourceBundle.npgettext(bundle, context, message, plural, n);
         return format(bundle, text, params);
     }
     

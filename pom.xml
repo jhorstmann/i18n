@@ -10,6 +10,7 @@
         <module>i18n-core</module>
         <module>i18n-elparser</module>
         <module>i18n-gettext-tools</module>
+        <module>i18n-gnu-gettext-runtime</module>
         <module>i18n-jsf</module>
         <module>i18n-maven-plugin</module>
         <module>i18n-sample-webapp</module>
