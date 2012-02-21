@@ -46,6 +46,10 @@ public class ResourceBundleCompiler {
 
     public static void compileFile(Catalog catalog, String parentClassName, String className, File dir) throws IOException {
         File file = new File(dir, className.replace('.', '/') + ".class");
+        File parent = file.getParentFile();
+        if (!parent.exists() && !parent.mkdirs()) {
+            throw new IOException("Could not create directory " + parent);
+        }
         byte[] bytes = compile(catalog, parentClassName, className);
         FileOutputStream fos = new FileOutputStream(file);
         try {
