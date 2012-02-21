@@ -33,12 +33,12 @@ public class DistMojo extends AbstractGettextMojo {
      */
     protected String sourceLocale;
 
-    static String getLocale(File file) {
+    private static String getLocale(File file) {
         String fileName = file.getName();
         return fileName.substring(0, fileName.lastIndexOf('.'));
     }
 
-    void processLocaleImpl(File inputFile, String locale) throws IOException, MojoExecutionException {
+    private void processLocaleImpl(File inputFile, String locale) throws IOException, MojoExecutionException {
         String className = targetBundle;
         if (locale != null && locale.length() > 0) {
             className += "_" + locale;
@@ -49,11 +49,25 @@ public class DistMojo extends AbstractGettextMojo {
         ResourceBundleCompiler.compileFile(catalog, GettextResourceBundle.class.getName(), className, classesDirectory);
     }
 
-    void processLocale(File inputFile, String locale) throws MojoExecutionException {
+    private void processLocale(File inputFile, String locale) throws MojoExecutionException {
         try {
             processLocaleImpl(inputFile, locale);
         } catch (IOException ex) {
             throw new MojoExecutionException("Could not create ResourceBundle for input " + inputFile + " and locale " + locale, ex);
+        }
+    }
+
+    private void touch(File file) {
+        if (!file.exists()) {
+            File parent = file.getParentFile();
+            if (!parent.exists()) {
+                parent.mkdirs();
+            }
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                getLog().warn("Could not create file " + file, e);
+            }
         }
     }
 
@@ -89,6 +103,8 @@ public class DistMojo extends AbstractGettextMojo {
                 processLocale(keysFile, sourceLocale);
             }
         }
-        
+
+        // Create emppty default message bundle
+        touch(new File(classesDirectory, targetBundle.replace('.', '/') + ".properties"));
     }
 }
