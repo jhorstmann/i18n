@@ -25,7 +25,7 @@ msgstr[1] "{0} Tests"
 #: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:13
 msgctxt "Hello World (Title)"
 msgid "Hello Internationalized World!"
-msgstr ""
+msgstr "Hello English-speaking World!"
 
 #: file:///home/jh/Source/JH/Java/NetBeans/i18n/i18n-sample-webapp/src/main/webapp/index.xhtml:19
 msgid "Submit"
