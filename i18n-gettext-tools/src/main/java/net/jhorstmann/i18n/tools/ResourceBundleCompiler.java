@@ -5,6 +5,7 @@ import antlr.TokenStreamException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import net.jhorstmann.i18n.tools.expr.Expression;
@@ -201,23 +202,34 @@ public class ResourceBundleCompiler {
             String msgid = (msgctx != null ? msgctx + CONTEXT_GLUE : "") + message.getMsgid();
             mv.visitVarInsn(ALOAD, 0);
             if (message.isPlural()) {
-                List<String> plurals = message.getMsgstrPlural();
-                mv.visitLdcInsn(Integer.valueOf(plurals.size()));
-                mv.visitTypeInsn(ANEWARRAY, "java/lang/String");
-                mv.visitVarInsn(ASTORE, 1);
-                int i = 0;
-                for (String plural : plurals) {
+                List<String> plurals = catalog.isTemplate() ? Arrays.asList(msgid, message.getMsgidPlural()) : message.getMsgstrPlural();
+                if (plurals.isEmpty()) {
+                    mv.visitInsn(ACONST_NULL);
+                    mv.visitLdcInsn(msgid);
+                } else {
+                    mv.visitLdcInsn(Integer.valueOf(plurals.size()));
+                    mv.visitTypeInsn(ANEWARRAY, "java/lang/String");
+                    mv.visitVarInsn(ASTORE, 1);
+                    int i = 0;
+                    for (String plural : plurals) {
+                        mv.visitVarInsn(ALOAD, 1);
+                        mv.visitLdcInsn(Integer.valueOf(i));
+                        mv.visitLdcInsn(plural);
+                        mv.visitInsn(AASTORE);
+                        i++;
+                    }
+                    mv.visitLdcInsn(msgid);
                     mv.visitVarInsn(ALOAD, 1);
-                    mv.visitLdcInsn(Integer.valueOf(i));
-                    mv.visitLdcInsn(plural);
-                    mv.visitInsn(AASTORE);
-                    i++;
                 }
-                mv.visitLdcInsn(msgid);
-                mv.visitVarInsn(ALOAD, 1);
             } else {
-                mv.visitLdcInsn(msgid);
-                mv.visitLdcInsn(message.getMsgstr());
+                String msgstr = catalog.isTemplate() ? message.getMsgid() : message.getMsgstr();
+                if (msgstr == null || msgstr.length() == 0) {
+                    mv.visitLdcInsn(msgid);
+                    mv.visitInsn(ACONST_NULL);
+                } else {
+                    mv.visitLdcInsn(msgid);
+                    mv.visitLdcInsn(msgstr);
+                }
             }
             mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
             mv.visitInsn(POP);
