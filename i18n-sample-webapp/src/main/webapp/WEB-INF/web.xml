@@ -25,6 +25,19 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>I18nFilter</filter-name>
+        <filter-class>net.jhorstmann.i18n.jsp.I18nFilter</filter-class>
+        <init-param>
+            <param-name>bundle</param-name>
+            <param-value>net.jhorstmann.i18n.sample.Messages</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>I18nFilter</filter-name>
+        <url-pattern>*.jspx</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>disallowed</web-resource-name>

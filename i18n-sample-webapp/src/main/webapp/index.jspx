@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://jhorstmann.net/taglib/i18n" version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+
+    <html>
+        <head>
+        </head>
+        <body>
+            <h1>
+                <tr:tr context="Hello World (Header)">Hello Internationalized World!</tr:tr>
+            </h1>
+
+            <h2>
+                <tr:tr>Simple message</tr:tr>
+            </h2>
+
+            <h2>
+                <tr:tr context="Message with context">Message with context</tr:tr>
+            </h2>
+            <h3>
+                <tr:tr context="Message with context" message="Message with context"/>
+            </h3>
+            <h3>
+                <tr:tr>
+                    <tr:context>Message with context</tr:context>
+                        Message with context
+                </tr:tr>
+            </h3>
+            <h3>
+                <tr:tr num="${param.num}" message="One Message" plural="Several Messages"></tr:tr>
+            </h3>
+            <h3>
+                <tr:tr num="${param.num}" message="One Message" plural="Several Messages"></tr:tr>
+            </h3>
+            <h3>
+                <tr:tr num="${param.num}" message="{0} Message" plural="{0} Messages">
+                    <tr:param value="${0+param.num}"/>
+                </tr:tr>
+            </h3>
+            <h3>
+                <tr:tr num="${param.num}">
+                    <tr:message>{0} Message</tr:message>
+                    <tr:plural>{0} Messages</tr:plural>
+                    <tr:param value="${0+param.num}"/>
+                </tr:tr>
+            </h3>
+            <h3>
+                <tr:tr num="${param.num}">
+                    <tr:plural>{0} Messages</tr:plural>
+                    <tr:param value="${0+param.num}"/>
+                    {0} Message
+                </tr:tr>
+            </h3>
+        </body>
+    </html>
+
+</jsp:root>
