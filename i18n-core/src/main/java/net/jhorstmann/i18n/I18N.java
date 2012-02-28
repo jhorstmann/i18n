@@ -25,14 +25,8 @@ public class I18N {
     }
     
     private static String format(ResourceBundle bundle, String pattern, Object... params) {
-        if (params.length == 0) {
-            // FIXME: This should be faster but does give different results
-            // when there are placeholders without corresponding parameters.
-            return pattern;
-        } else {
-            MessageFormat fmt = new MessageFormat(pattern, bundle.getLocale());
-            return fmt.format(params);
-        }
+        MessageFormat fmt = new MessageFormat(pattern, bundle.getLocale());
+        return fmt.format(params);
     }
 
     public static String translate(ResourceBundle bundle, String context, String message, String plural, long n, Object... params) {

@@ -45,4 +45,16 @@ public class I18NTest {
         Locale.setDefault(Locale.GERMANY);
         Assert.assertEquals("Hallo Test", I18N.tr("helloParam", new Object[]{"Test"}));
     }
+
+    @Test
+    public void testQuotes() {
+        Locale.setDefault(Locale.GERMANY);
+        Assert.assertEquals("Hallo 'Anführungszeichen'", I18N.tr("helloQuotes"));
+    }
+
+    @Test
+    public void testQuotesAndParam() {
+        Locale.setDefault(Locale.GERMANY);
+        Assert.assertEquals("Hallo 'Test'", I18N.tr("helloQuotesParam", "Test"));
+    }
 }
