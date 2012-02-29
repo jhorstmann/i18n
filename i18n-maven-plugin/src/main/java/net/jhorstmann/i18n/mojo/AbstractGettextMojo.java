@@ -69,7 +69,7 @@ abstract class AbstractGettextMojo extends AbstractMojo {
         return javaFunctions != null ? Arrays.asList(javaFunctions) : AsmMessageExtractor.DEFAULT_MESSAGE_FUNCTIONS;
     }
 
-    private MessageBundle loadCatalogImpl() throws IOException {
+    private MessageBundle loadMessageBundleImpl() throws IOException {
         if (update && keysFile.exists()) {
             getLog().info("Loading existing keys from " + keysFile);
             return MessageBundle.loadCatalog(keysFile);
@@ -80,13 +80,13 @@ abstract class AbstractGettextMojo extends AbstractMojo {
 
     MessageBundle loadMessageBundle() throws MojoExecutionException {
         try {
-            return loadCatalogImpl();
+            return loadMessageBundleImpl();
         } catch (IOException ex) {
-            throw new MojoExecutionException("Could not load message catalog", ex);
+            throw new MojoExecutionException("Could not load message bundle", ex);
         }
     }
 
-    private void saveCatalogImpl(MessageBundle bundle) throws IOException {
+    private void saveMessageBundleImpl(MessageBundle bundle) throws IOException {
         File dir = keysFile.getParentFile();
         if (!dir.exists()) {
             getLog().debug("Creating directory for keys file");
@@ -96,17 +96,14 @@ abstract class AbstractGettextMojo extends AbstractMojo {
             }
         }
         getLog().debug("Saving keys to " + keysFile);
-        bundle.
-        PoWriter writer = new PoWriter();
-        writer.setGenerateHeader(!update);
-        writer.write(bundle, keysFile);
+        bundle.storeCatalog(keysFile);
     }
 
-    void saveCatalog(Catalog catalog) throws MojoExecutionException {
+    void saveMessageBundle(MessageBundle bundle) throws MojoExecutionException {
         try {
-            saveCatalogImpl(catalog);
+            saveMessageBundleImpl(bundle);
         } catch (IOException ex) {
-            throw new MojoExecutionException("Could not save message catalog", ex);
+            throw new MojoExecutionException("Could not save message bundle", ex);
         }
     }
 

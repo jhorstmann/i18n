@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import net.jhorstmann.i18n.tools.expr.Expression;
-import org.fedorahosted.tennera.jgettext.Catalog;
-import org.fedorahosted.tennera.jgettext.HeaderFields;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
@@ -37,21 +35,21 @@ public class ResourceBundleCompiler {
         }
     }
 
-    public static byte[] compile(Catalog catalog, String className) {
-        return compile(catalog, DEFAULT_PARENT_CLASS, className);
+    public static byte[] compile(MessageBundle bundle, String className) {
+        return compile(bundle, DEFAULT_PARENT_CLASS, className);
     }
 
-    public static void compileFile(Catalog catalog, String className, File dir) throws IOException {
-        compileFile(catalog, DEFAULT_PARENT_CLASS, className, dir);
+    public static void compileFile(MessageBundle bundle, String className, File dir) throws IOException {
+        compileFile(bundle, DEFAULT_PARENT_CLASS, className, dir);
     }
 
-    public static void compileFile(Catalog catalog, String parentClassName, String className, File dir) throws IOException {
+    public static void compileFile(MessageBundle bundle, String parentClassName, String className, File dir) throws IOException {
         File file = new File(dir, className.replace('.', '/') + ".class");
         File parent = file.getParentFile();
         if (!parent.exists() && !parent.mkdirs()) {
             throw new IOException("Could not create directory " + parent);
         }
-        byte[] bytes = compile(catalog, parentClassName, className);
+        byte[] bytes = compile(bundle, parentClassName, className);
         FileOutputStream fos = new FileOutputStream(file);
         try {
             fos.write(bytes);
@@ -60,45 +58,39 @@ public class ResourceBundleCompiler {
         }
     }
 
-    static Class<ResourceBundle> compileAndLoad(Catalog catalog, String className) throws InstantiationException, IllegalAccessException {
-        return compileAndLoad(catalog, DEFAULT_PARENT_CLASS, className, null);
+    static Class<ResourceBundle> compileAndLoad(MessageBundle bundle, String className) throws InstantiationException, IllegalAccessException {
+        return compileAndLoad(bundle, DEFAULT_PARENT_CLASS, className, null);
     }
 
-    static Class<ResourceBundle> compileAndLoad(Catalog catalog, String parentClassName, String className, ClassLoader parent) throws InstantiationException, IllegalAccessException {
-        byte[] bytes = compile(catalog, parentClassName, className);
+    static Class<ResourceBundle> compileAndLoad(MessageBundle bundle, String parentClassName, String className, ClassLoader parent) throws InstantiationException, IllegalAccessException {
+        byte[] bytes = compile(bundle, parentClassName, className);
         return (Class<ResourceBundle>) new MyClassLoader(parent).defineClass(className, bytes);
     }
 
-    public static byte[] compile(Catalog catalog, String parentClassName, String className) {
+    public static byte[] compile(MessageBundle bundle, String parentClassName, String className) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
         CheckClassAdapter ca = new CheckClassAdapter(cw, true);
-        compile(ca, catalog, parentClassName, className);
+        compile(ca, bundle, parentClassName, className);
         return cw.toByteArray();
     }
 
-    static void compile(ClassVisitor cv, Catalog catalog, String parentClassName, String className) {
+    static void compile(ClassVisitor cv, MessageBundle bundle, String parentClassName, String className) {
         String parent = parentClassName.replace('.', '/');
         String owner = className.replace('.', '/');
         cv.visit(V1_2, ACC_PUBLIC, owner, null, parent, null);
         cv.visitField(ACC_PRIVATE | ACC_STATIC, "messages", "Ljava/util/HashMap;", null, null);
 
-        compileStaticInit(cv, owner, catalog);
+        compileStaticInit(cv, owner, bundle);
         compileConstructor(cv, parent);
         compileGetParent(cv, parent);
         compileLookup(cv, owner);
         compileGetKeys(cv, owner);
         compileHandleGetObject(cv, owner);
 
-        Message header = catalog.locateHeader();
-        if (header != null) {
-            HeaderFields fields = HeaderFields.wrap(header);
-            String pluralForms = fields.getValue("Plural-Forms");
-            if (pluralForms != null) {
-                compilePluralEval(cv, pluralForms);
-                compilePluralIndex(cv, owner);
-            } else {
-                compilePluralIndexDummy(cv, owner);
-            }
+        String pluralForms = bundle.getPluralForms();
+        if (pluralForms != null) {
+            compilePluralEval(cv, pluralForms);
+            compilePluralIndex(cv, owner);
         } else {
             compilePluralIndexDummy(cv, owner);
         }
@@ -179,7 +171,7 @@ public class ResourceBundleCompiler {
         mv.visitEnd();
     }
 
-    private static void compileStaticInit(ClassVisitor cv, String owner, Catalog catalog) {
+    private static void compileStaticInit(ClassVisitor cv, String owner, MessageBundle bundle) {
         Label localMapBegin = new Label();
         Label localMapEnd = new Label();
         Label localArrayBegin = new Label();
@@ -197,12 +189,12 @@ public class ResourceBundleCompiler {
 
         mv.visitLabel(localArrayBegin);
         // TODO: Depending on the amount of messages this might get too big for one method and should be split up
-        for (Message message : catalog) {
+        for (Message message : bundle) {
             String msgctx = message.getMsgctxt();
             String msgid = (msgctx != null ? msgctx + CONTEXT_GLUE : "") + message.getMsgid();
             mv.visitVarInsn(ALOAD, 0);
             if (message.isPlural()) {
-                List<String> plurals = catalog.isTemplate() ? Arrays.asList(msgid, message.getMsgidPlural()) : message.getMsgstrPlural();
+                List<String> plurals = bundle.isTemplate() ? Arrays.asList(msgid, message.getMsgidPlural()) : message.getMsgstrPlural();
                 if (plurals.isEmpty()) {
                     mv.visitInsn(ACONST_NULL);
                     mv.visitLdcInsn(msgid);
@@ -222,7 +214,7 @@ public class ResourceBundleCompiler {
                     mv.visitVarInsn(ALOAD, 1);
                 }
             } else {
-                String msgstr = catalog.isTemplate() ? message.getMsgid() : message.getMsgstr();
+                String msgstr = bundle.isTemplate() ? message.getMsgid() : message.getMsgstr();
                 if (msgstr == null || msgstr.length() == 0) {
                     mv.visitLdcInsn(msgid);
                     mv.visitInsn(ACONST_NULL);

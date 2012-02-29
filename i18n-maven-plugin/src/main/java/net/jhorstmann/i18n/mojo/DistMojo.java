@@ -3,12 +3,11 @@ package net.jhorstmann.i18n.mojo;
 import java.io.File;
 import java.io.IOException;
 import net.jhorstmann.i18n.GettextResourceBundle;
+import net.jhorstmann.i18n.tools.MessageBundle;
 import net.jhorstmann.i18n.tools.ResourceBundleCompiler;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.DirectoryScanner;
-import org.fedorahosted.tennera.jgettext.Catalog;
-import org.fedorahosted.tennera.jgettext.PoParser;
 
 /**
  * Generates ressource bundles.
@@ -43,10 +42,9 @@ public class DistMojo extends AbstractGettextMojo {
         if (locale != null && locale.length() > 0) {
             className += "_" + locale;
         }
+        MessageBundle bundle = MessageBundle.loadCatalog(inputFile);
 
-        Catalog catalog = new PoParser().parseCatalog(inputFile);
-
-        ResourceBundleCompiler.compileFile(catalog, GettextResourceBundle.class.getName(), className, classesDirectory);
+        ResourceBundleCompiler.compileFile(bundle, GettextResourceBundle.class.getName(), className, classesDirectory);
     }
 
     private void processLocale(File inputFile, String locale) throws MojoExecutionException {

@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import junit.framework.Assert;
 import net.jhorstmann.i18n.GettextResourceBundle;
-import org.fedorahosted.tennera.jgettext.Catalog;
 import org.fedorahosted.tennera.jgettext.HeaderFields;
 import org.fedorahosted.tennera.jgettext.HeaderUtil;
 import org.fedorahosted.tennera.jgettext.Message;
@@ -14,21 +13,21 @@ import org.junit.Test;
 
 public class ResourceBundleCompilerTest {
 
-    static Catalog createCatalog() {
-        Catalog catalog = new Catalog(false);
+    static MessageBundle createBundle() {
+        MessageBundle bundle = new MessageBundle();
         {
             Message msg = HeaderUtil.generateDefaultHeader();
             HeaderFields fields = HeaderFields.wrap(msg);
             fields.setValue("Plural-Forms", "nplurals=2; plural=n == 1 ? 0 : 1;");
             msg = fields.unwrap();
-            catalog.addMessage(msg);
+            bundle.addMessage(msg);
         }
         {
             Message msg = new Message();
             msg.setMsgctxt("ctx1");
             msg.setMsgid("id1");
             msg.setMsgstr("str1");
-            catalog.addMessage(msg);
+            bundle.addMessage(msg);
         }
         {
             Message msg = new Message();
@@ -37,17 +36,17 @@ public class ResourceBundleCompilerTest {
             msg.setMsgidPlural("id2plural");
             msg.addMsgstrPlural("plural", 0);
             msg.addMsgstrPlural("plurals", 1);
-            catalog.addMessage(msg);
+            bundle.addMessage(msg);
         }
 
-        return catalog;
+        return bundle;
     }
 
     @Test
     public void testCompileResourceBundle() throws InstantiationException, IllegalAccessException, NoSuchFieldException {
-        Catalog catalog = createCatalog();
+        MessageBundle bundle = createBundle();
         String parentClassName = GettextResourceBundle.class.getName();
-        Class<ResourceBundle> bundleClass = ResourceBundleCompiler.compileAndLoad(catalog, parentClassName, "net.jhorstmann.i18n.tools.TestResourceBundle_de", getClass().getClassLoader());
+        Class<ResourceBundle> bundleClass = ResourceBundleCompiler.compileAndLoad(bundle, parentClassName, "net.jhorstmann.i18n.tools.TestResourceBundle_de", getClass().getClassLoader());
         {
             Field messagesField = bundleClass.getDeclaredField("messages");
             messagesField.setAccessible(true);
@@ -64,16 +63,16 @@ public class ResourceBundleCompilerTest {
             Assert.assertEquals("plural", singular);
             Assert.assertEquals("plurals", plural);
         }
-        ResourceBundle bundle = bundleClass.newInstance();
+        ResourceBundle rb = bundleClass.newInstance();
         {
-            Assert.assertEquals("str1", GettextResourceBundle.pgettext(bundle, "ctx1", "id1"));
-            Assert.assertEquals("plurals", GettextResourceBundle.npgettext(bundle, "ctx2", "id2", "id2plural", 0L));
-            Assert.assertEquals("plural" , GettextResourceBundle.npgettext(bundle, "ctx2", "id2", "id2plural", 1L));
-            Assert.assertEquals("plurals", GettextResourceBundle.npgettext(bundle, "ctx2", "id2", "id2plural", 2L));
-            Assert.assertEquals("plurals", GettextResourceBundle.npgettext(bundle, "ctx2", "id2", "id2plural", 3L));
+            Assert.assertEquals("str1", GettextResourceBundle.pgettext(rb, "ctx1", "id1"));
+            Assert.assertEquals("plurals", GettextResourceBundle.npgettext(rb, "ctx2", "id2", "id2plural", 0L));
+            Assert.assertEquals("plural" , GettextResourceBundle.npgettext(rb, "ctx2", "id2", "id2plural", 1L));
+            Assert.assertEquals("plurals", GettextResourceBundle.npgettext(rb, "ctx2", "id2", "id2plural", 2L));
+            Assert.assertEquals("plurals", GettextResourceBundle.npgettext(rb, "ctx2", "id2", "id2plural", 3L));
         }
         {
-            Enumeration<String> keys = bundle.getKeys();
+            Enumeration<String> keys = rb.getKeys();
             Assert.assertTrue(keys.hasMoreElements());
             
         }
