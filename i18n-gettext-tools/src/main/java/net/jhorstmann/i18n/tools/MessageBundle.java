@@ -160,6 +160,14 @@ public class MessageBundle implements Iterable<Message> {
         this.locale = locale;
     }
 
+    public boolean isTemplate() {
+        return template;
+    }
+
+    public void setTemplate(boolean template) {
+        this.template = template;
+    }
+
     public int size() {
         return messages.size();
     }
