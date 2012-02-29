@@ -5,13 +5,13 @@ import org.objectweb.asm.tree.ClassNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
-import org.fedorahosted.tennera.jgettext.Catalog;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 import java.util.List;
+import net.jhorstmann.i18n.tools.MessageBundle;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -32,13 +32,13 @@ public class ConstantTrackingInterpreter implements Interpreter {
     private static final Value REFERENCE_VALUE = new SimpleValue(Type.getObjectType("java/lang/Object"));
     private static final Value UNINITIALIZED_VALUE = new UninitializedValue();
     private static final Value RETURN_ADDR_VALUE = new ReturnAddressValue();
-    private Catalog catalog;
+    private MessageBundle bundle;
     private Map<String, MessageFunction> functionByDesc;
     private ClassNode currentClass;
     private MethodNode currentMethod;
 
-    public ConstantTrackingInterpreter(Catalog catalog, List<MessageFunction> functions) {
-        this.catalog = catalog;
+    public ConstantTrackingInterpreter(MessageBundle catalog, List<MessageFunction> functions) {
+        this.bundle = catalog;
         this.functionByDesc = new HashMap<String, MessageFunction>();
         for (MessageFunction function : functions) {
             String key = function.getNamespace() + "." + function.getName() + function.getDescription();
@@ -363,7 +363,7 @@ public class ConstantTrackingInterpreter implements Interpreter {
             }
             log.debug("Found message {}", msg);
 
-            catalog.addMessage(msg);
+            bundle.addMessage(msg);
         }
     }
 

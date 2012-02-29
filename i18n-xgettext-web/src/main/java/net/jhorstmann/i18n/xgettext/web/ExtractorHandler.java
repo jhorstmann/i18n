@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
+import net.jhorstmann.i18n.tools.MessageBundle;
 
 import net.jhorstmann.i18n.xgettext.MessageFunction;
-import org.fedorahosted.tennera.jgettext.Catalog;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +18,13 @@ public class ExtractorHandler extends NestedContentHandler implements Locator, N
     private static final Logger log = LoggerFactory.getLogger(ExtractorHandler.class);
     
     private final NamespaceContextImpl namespaceContext;
-    private final Catalog catalog;
+    private final MessageBundle bundle;
     private Locator locator;
     private List<MessageFunction> functions;
 
-    public ExtractorHandler(XMLReader xmlreader, Catalog catalog, List<MessageFunction> functions) {
+    public ExtractorHandler(XMLReader xmlreader, MessageBundle bundle, List<MessageFunction> functions) {
         super(xmlreader);
-        this.catalog = catalog;
+        this.bundle = bundle;
         this.namespaceContext = new NamespaceContextImpl();
         this.functions = functions;
     }
@@ -52,7 +52,7 @@ public class ExtractorHandler extends NestedContentHandler implements Locator, N
     }
     
     public void addMessage(String msgid) {
-        catalog.addMessage(createMessage(msgid));
+        bundle.addMessage(createMessage(msgid));
     }
     
     public void addMessage(String context, String message, String plural, String comment) {
@@ -71,26 +71,26 @@ public class ExtractorHandler extends NestedContentHandler implements Locator, N
             msg.addExtractedComment(comment);
         }
         
-        catalog.addMessage(msg);
+        bundle.addMessage(msg);
     }
     
     public void addMessageWithContext(String msgctx, String msgid) {
         Message msg = createMessage(msgid);
         msg.setMsgctxt(msgctx);
-        catalog.addMessage(msg);
+        bundle.addMessage(msg);
     }
     
     public void addMessageWithPlural(String msgidSingular, String msgidPlural) {
         Message msg = createMessage(msgidSingular);
         msg.setMsgidPlural(msgidPlural);
-        catalog.addMessage(msg);
+        bundle.addMessage(msg);
     }
     
     public void addMessageWithContextAndPlural(String msgctx, String msgidSingular, String msgidPlural) {
         Message msg = createMessage(msgidSingular);
         msg.setMsgctxt(msgctx);
         msg.setMsgidPlural(msgidPlural);
-        catalog.addMessage(msg);
+        bundle.addMessage(msg);
     }
     
     @Override

@@ -11,10 +11,10 @@ import javax.el.ELException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import net.jhorstmann.i18n.tools.MessageBundle;
 import net.jhorstmann.i18n.xgettext.MessageExtractor;
 import net.jhorstmann.i18n.xgettext.MessageExtractorException;
 import net.jhorstmann.i18n.xgettext.MessageFunction;
-import org.fedorahosted.tennera.jgettext.Catalog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -42,16 +42,16 @@ public class WebMessageExtractor implements MessageExtractor {
     }
 
     
-    private Catalog catalog;
+    private MessageBundle bundle;
     private XMLReader xmlreader;
     private List<MessageFunction> functions;
 
-    public WebMessageExtractor(Catalog catalog) {
-        this(catalog, DEFAULT_MESSAGE_FUNCTIONS);
+    public WebMessageExtractor(MessageBundle bundle) {
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS);
     }
     
-    public WebMessageExtractor(Catalog catalog, List<MessageFunction> functions) {
-        this.catalog = catalog;
+    public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
+        this.bundle = bundle;
         this.xmlreader = createXMLReader();
         this.functions = functions;
     }
@@ -104,7 +104,7 @@ public class WebMessageExtractor implements MessageExtractor {
     }
 
     void extractMessages(InputSource input) throws IOException, MessageExtractorException {
-        xmlreader.setContentHandler(new ExtractorHandler(xmlreader, catalog, functions));
+        xmlreader.setContentHandler(new ExtractorHandler(xmlreader, bundle, functions));
         try {
             xmlreader.parse(input);
         } catch (SAXException ex) {

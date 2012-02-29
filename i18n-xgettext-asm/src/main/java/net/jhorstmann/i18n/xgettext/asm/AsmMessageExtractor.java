@@ -4,7 +4,6 @@ import net.jhorstmann.i18n.xgettext.MessageFunction;
 import net.jhorstmann.i18n.I18N;
 import net.jhorstmann.i18n.xgettext.MessageExtractor;
 import net.jhorstmann.i18n.xgettext.MessageExtractorException;
-import org.fedorahosted.tennera.jgettext.Catalog;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import net.jhorstmann.i18n.tools.MessageBundle;
 
 public class AsmMessageExtractor implements MessageExtractor {
 
@@ -48,12 +48,12 @@ public class AsmMessageExtractor implements MessageExtractor {
     }
     private ConstantTrackingInterpreter interpreter;
 
-    public AsmMessageExtractor(Catalog catalog) {
-        this(catalog, DEFAULT_MESSAGE_FUNCTIONS);
+    public AsmMessageExtractor(MessageBundle bundle) {
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS);
     }
 
-    public AsmMessageExtractor(Catalog catalog, List<MessageFunction> functions) {
-        this.interpreter = new ConstantTrackingInterpreter(catalog, functions);
+    public AsmMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
+        this.interpreter = new ConstantTrackingInterpreter(bundle, functions);
     }
 
     @Override

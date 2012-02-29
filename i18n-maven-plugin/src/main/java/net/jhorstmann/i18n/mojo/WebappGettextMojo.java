@@ -14,7 +14,7 @@ public class WebappGettextMojo extends AbstractGettextMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Catalog catalog = loadCatalog();
+        Catalog catalog = loadMessageBundle();
         MessageExtractor extractor = new WebMessageExtractor(catalog);
 
         int errorCount = extractMessages(extractor, webappDirectory, getWebappIncludes(), getWebappExcludes());

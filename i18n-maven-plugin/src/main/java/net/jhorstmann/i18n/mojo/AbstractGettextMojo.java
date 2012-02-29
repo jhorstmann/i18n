@@ -7,14 +7,12 @@ import net.jhorstmann.i18n.xgettext.asm.AsmMessageExtractor;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
-import org.fedorahosted.tennera.jgettext.Catalog;
-import org.fedorahosted.tennera.jgettext.PoParser;
-import org.fedorahosted.tennera.jgettext.PoWriter;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import net.jhorstmann.i18n.tools.MessageBundle;
 
 abstract class AbstractGettextMojo extends AbstractMojo {
 
@@ -71,18 +69,16 @@ abstract class AbstractGettextMojo extends AbstractMojo {
         return javaFunctions != null ? Arrays.asList(javaFunctions) : AsmMessageExtractor.DEFAULT_MESSAGE_FUNCTIONS;
     }
 
-    private Catalog loadCatalogImpl() throws IOException {
+    private MessageBundle loadCatalogImpl() throws IOException {
         if (update && keysFile.exists()) {
             getLog().info("Loading existing keys from " + keysFile);
-            PoParser parser = new PoParser();
-            return parser.parseCatalog(keysFile);
+            return MessageBundle.loadCatalog(keysFile);
         } else {
-            Catalog catalog = new Catalog(true);
-            return catalog;
+            return new MessageBundle();
         }
     }
 
-    Catalog loadCatalog() throws MojoExecutionException {
+    MessageBundle loadMessageBundle() throws MojoExecutionException {
         try {
             return loadCatalogImpl();
         } catch (IOException ex) {
@@ -90,7 +86,7 @@ abstract class AbstractGettextMojo extends AbstractMojo {
         }
     }
 
-    private void saveCatalogImpl(Catalog catalog) throws IOException {
+    private void saveCatalogImpl(MessageBundle bundle) throws IOException {
         File dir = keysFile.getParentFile();
         if (!dir.exists()) {
             getLog().debug("Creating directory for keys file");
@@ -100,9 +96,10 @@ abstract class AbstractGettextMojo extends AbstractMojo {
             }
         }
         getLog().debug("Saving keys to " + keysFile);
+        bundle.
         PoWriter writer = new PoWriter();
         writer.setGenerateHeader(!update);
-        writer.write(catalog, keysFile);
+        writer.write(bundle, keysFile);
     }
 
     void saveCatalog(Catalog catalog) throws MojoExecutionException {

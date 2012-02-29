@@ -15,7 +15,7 @@ public class GettextMojo extends AbstractGettextMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Catalog catalog = loadCatalog();
+        Catalog catalog = loadMessageBundle();
         int errorCount = 0;
 
         if (classesDirectory.exists()) {

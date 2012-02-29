@@ -14,7 +14,7 @@ public class ClassesGettextMojo extends AbstractGettextMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Catalog catalog = loadCatalog();
+        Catalog catalog = loadMessageBundle();
 
         MessageExtractor extractor = new AsmMessageExtractor(catalog, getJavaFunctions());
         int errorCount = extractMessages(extractor, classesDirectory, new String[]{"**/*.class"}, new String[]{});

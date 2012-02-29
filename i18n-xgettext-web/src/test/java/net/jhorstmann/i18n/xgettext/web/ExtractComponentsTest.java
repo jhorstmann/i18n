@@ -1,7 +1,6 @@
 package net.jhorstmann.i18n.xgettext.web;
 
 import net.jhorstmann.i18n.xgettext.MessageExtractorException;
-import org.fedorahosted.tennera.jgettext.Catalog;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,23 +8,23 @@ import org.xml.sax.InputSource;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
+import net.jhorstmann.i18n.tools.MessageBundle;
 
 public class ExtractComponentsTest {
-    private Catalog parseComponents() throws IOException, MessageExtractorException {
-        Catalog catalog = new Catalog(true);
+    private MessageBundle parseComponents() throws IOException, MessageExtractorException {
+        MessageBundle bundle = new MessageBundle();
         InputSource input = new InputSource(getClass().getResourceAsStream("test_components.xhtml"));
         input.setSystemId("test_components.xhtml");
-        new WebMessageExtractor(catalog).extractMessages(input);
-        Assert.assertFalse(catalog.isEmpty());
-        Assert.assertEquals(3, catalog.size());
-        return catalog;
+        new WebMessageExtractor(bundle).extractMessages(input);
+        Assert.assertFalse(bundle.isEmpty());
+        Assert.assertEquals(3, bundle.size());
+        return bundle;
     }
 
     @Test
     public void componentMessage() throws IOException, MessageExtractorException {
-        Catalog catalog = parseComponents();
-        Message msg = catalog.locateMessage(null, "Hello World");
+        MessageBundle bundle = parseComponents();
+        Message msg = bundle.getMessage("Hello World");
         Assert.assertNotNull(msg);
         Assert.assertEquals(1, msg.getSourceReferences().size());
         Assert.assertTrue(msg.getSourceReferences().get(0).endsWith("test_components.xhtml:7"));
@@ -35,8 +34,8 @@ public class ExtractComponentsTest {
 
     @Test
     public void componentMessageWithContext() throws IOException, MessageExtractorException {
-        Catalog catalog = parseComponents();
-        Message msgWithContext = catalog.locateMessage("Hello World (title)", "Hello World");
+        MessageBundle bundle = parseComponents();
+        Message msgWithContext = bundle.getMessage("Hello World (title)", "Hello World");
         Assert.assertNotNull(msgWithContext);
         Assert.assertEquals(1, msgWithContext.getSourceReferences().size());
         Assert.assertTrue(msgWithContext.getSourceReferences().get(0).endsWith("test_components.xhtml:4"));
@@ -46,8 +45,8 @@ public class ExtractComponentsTest {
 
     @Test
     public void componentMessageWithContextAndPlural() throws IOException, MessageExtractorException {
-        Catalog catalog = parseComponents();
-        Message msgWithContextAndPlural = catalog.locateMessage("Hello World (plural)", "Hello World");
+        MessageBundle bundle = parseComponents();
+        Message msgWithContextAndPlural = bundle.getMessage("Hello World (plural)", "Hello World");
         Assert.assertNotNull(msgWithContextAndPlural);
         Assert.assertEquals(1, msgWithContextAndPlural.getSourceReferences().size());
         // Location of closing tag

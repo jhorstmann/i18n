@@ -2,6 +2,7 @@ package net.jhorstmann.i18n.tools;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -13,6 +14,7 @@ import org.fedorahosted.openprops.Properties;
 import org.fedorahosted.tennera.jgettext.Catalog;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.fedorahosted.tennera.jgettext.PoParser;
+import org.fedorahosted.tennera.jgettext.PoWriter;
 
 public class MessageBundle implements Iterable<Message> {
 
@@ -235,5 +237,27 @@ public class MessageBundle implements Iterable<Message> {
             props.setProperty(id, str);
         }
         return props;
+    }
+
+    public void storeCatalog(File file) throws IOException {
+        Catalog catalog = toCatalog(template);
+        PoWriter pw = new PoWriter();
+        pw.setGenerateHeader(!template);
+        FileOutputStream fos = new FileOutputStream(file);
+        try {
+            pw.write(catalog, fos);
+        } finally {
+            fos.close();
+        }
+    }
+
+    public void storeProperties(File file) throws IOException {
+        Properties props = toOpenProps();
+        FileOutputStream fos = new FileOutputStream(file);
+        try {
+            props.store(fos, null);
+        } finally {
+            fos.close();
+        }
     }
 }
