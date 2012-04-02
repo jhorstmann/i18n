@@ -33,7 +33,7 @@ has several drawbacks.
   * The need to invent a key for each message interrupts the programmers flow.
     Sometimes it is already pretty hard to think of meaningful variable names,
     having to think about something totally unrelated to the code, like
-    translation.
+    translation further distracts the programmer.
 
   * The plural handling in gettext is superior for some languages having more
     than two [plural forms][1]. For simple cases pluralization can be done using
