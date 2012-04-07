@@ -1,6 +1,5 @@
 package net.jhorstmann.i18n.xgettext.web;
 
-import net.jhorstmann.i18n.xgettext.MessageExtractorException;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +8,7 @@ import org.xml.sax.InputSource;
 import java.io.IOException;
 import java.util.Collection;
 import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
 
 public class ExtractComponentsTest {
     private MessageBundle parseComponents() throws IOException, MessageExtractorException {

@@ -1,6 +1,5 @@
 package net.jhorstmann.i18n.xgettext.asm;
 
-import net.jhorstmann.i18n.xgettext.MessageFunction;
 import org.objectweb.asm.tree.ClassNode;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 import java.util.List;
 import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.MethodNode;

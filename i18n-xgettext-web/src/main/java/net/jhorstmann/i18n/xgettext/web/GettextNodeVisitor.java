@@ -6,7 +6,7 @@ import org.apache.el.parser.AstString;
 import org.apache.el.parser.Node;
 import org.apache.el.parser.NodeVisitor;
 import javax.el.ELException;
-import net.jhorstmann.i18n.xgettext.MessageFunction;
+import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

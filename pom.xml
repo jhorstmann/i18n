@@ -14,7 +14,6 @@
         <module>i18n-jsp</module>
         <module>i18n-maven-plugin</module>
         <module>i18n-sample-webapp</module>
-        <module>i18n-xgettext-api</module>
         <module>i18n-xgettext-asm</module>
         <module>i18n-xgettext-web</module>
     </modules>

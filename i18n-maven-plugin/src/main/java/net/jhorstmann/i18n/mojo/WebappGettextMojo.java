@@ -1,7 +1,7 @@
 package net.jhorstmann.i18n.mojo;
 
 import net.jhorstmann.i18n.tools.MessageBundle;
-import net.jhorstmann.i18n.xgettext.MessageExtractor;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
 import net.jhorstmann.i18n.xgettext.web.WebMessageExtractor;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;

@@ -1,4 +1,4 @@
-package net.jhorstmann.i18n.xgettext;
+package net.jhorstmann.i18n.tools.xgettext;
 
 import java.io.File;
 import java.io.IOException;

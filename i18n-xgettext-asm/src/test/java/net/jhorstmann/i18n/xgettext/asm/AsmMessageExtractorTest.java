@@ -1,7 +1,6 @@
 package net.jhorstmann.i18n.xgettext.asm;
 
 import net.jhorstmann.i18n.I18N;
-import net.jhorstmann.i18n.xgettext.MessageExtractorException;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
 
 public class AsmMessageExtractorTest {
 

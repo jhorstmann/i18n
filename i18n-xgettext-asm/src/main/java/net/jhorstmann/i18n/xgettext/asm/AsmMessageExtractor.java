@@ -1,9 +1,6 @@
 package net.jhorstmann.i18n.xgettext.asm;
 
-import net.jhorstmann.i18n.xgettext.MessageFunction;
 import net.jhorstmann.i18n.I18N;
-import net.jhorstmann.i18n.xgettext.MessageExtractor;
-import net.jhorstmann.i18n.xgettext.MessageExtractorException;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -19,6 +16,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
+import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 
 public class AsmMessageExtractor implements MessageExtractor {
 

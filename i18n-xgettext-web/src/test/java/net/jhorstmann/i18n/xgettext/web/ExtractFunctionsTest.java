@@ -3,8 +3,8 @@ package net.jhorstmann.i18n.xgettext.web;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
 
-import net.jhorstmann.i18n.xgettext.MessageExtractorException;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.junit.Assert;
 import org.junit.Test;

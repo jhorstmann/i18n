@@ -17,11 +17,6 @@
         </dependency>
         <dependency>
             <groupId>net.jhorstmann.i18n</groupId>
-            <artifactId>i18n-xgettext-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.jhorstmann.i18n</groupId>
             <artifactId>i18n-xgettext-asm</artifactId>
             <version>${project.version}</version>
         </dependency>
