@@ -55,7 +55,7 @@ public class WebMessageExtractor extends AbstractExtractorHandler implements Mes
 
     @Override
     public void startDocument() throws SAXException {
-        pushHandler(new ELHandler(this));
+        pushHandler(new RootHandler(this));
     }
 
     @Override
