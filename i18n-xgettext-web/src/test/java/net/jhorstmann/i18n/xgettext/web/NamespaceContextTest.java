@@ -1,5 +1,6 @@
 package net.jhorstmann.i18n.xgettext.web;
 
+import net.jhorstmann.i18n.tools.xml.NamespaceContextImpl;
 import java.util.Iterator;
 import junit.framework.Assert;
 import org.junit.Test;

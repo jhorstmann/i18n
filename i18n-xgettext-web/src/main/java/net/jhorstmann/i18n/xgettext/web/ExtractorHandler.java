@@ -1,5 +1,7 @@
 package net.jhorstmann.i18n.xgettext.web;
 
+import net.jhorstmann.i18n.tools.xml.NamespaceContextImpl;
+import net.jhorstmann.i18n.tools.xml.NestedContentHandler;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.namespace.NamespaceContext;

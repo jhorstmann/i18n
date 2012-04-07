@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.el.ELException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xml.XMLHelper;
 import net.jhorstmann.i18n.xgettext.MessageExtractor;
 import net.jhorstmann.i18n.xgettext.MessageExtractorException;
 import net.jhorstmann.i18n.xgettext.MessageFunction;
@@ -19,8 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
 public class WebMessageExtractor implements MessageExtractor {
@@ -52,41 +48,8 @@ public class WebMessageExtractor implements MessageExtractor {
     
     public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
         this.bundle = bundle;
-        this.xmlreader = createXMLReader();
+        this.xmlreader = XMLHelper.createXMLReader();
         this.functions = functions;
-    }
-    
-    private static SAXParserFactory createParserFactory() {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        factory.setNamespaceAware(true);
-        factory.setValidating(false);
-        try {
-            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-        } catch (ParserConfigurationException ex) {
-        } catch (SAXNotRecognizedException ex) {
-        } catch (SAXNotSupportedException ex) {
-        }
-        try {
-            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-        } catch (ParserConfigurationException ex) {
-        } catch (SAXNotRecognizedException ex) {
-        } catch (SAXNotSupportedException ex) {
-        }
-        return factory;
-    }
-    
-    private static XMLReader createXMLReader() {
-        SAXParserFactory factory = createParserFactory();
-        try {
-            SAXParser parser = factory.newSAXParser();
-            return parser.getXMLReader();
-        } catch (ParserConfigurationException ex) {
-            throw new IllegalStateException(ex);
-        } catch (SAXException ex) {
-            throw new IllegalStateException(ex);
-        }
     }
     
     @Override

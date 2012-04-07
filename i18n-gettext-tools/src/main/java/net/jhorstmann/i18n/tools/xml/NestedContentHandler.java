@@ -1,4 +1,4 @@
-package net.jhorstmann.i18n.xgettext.web;
+package net.jhorstmann.i18n.tools.xml;
 
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXNotRecognizedException;

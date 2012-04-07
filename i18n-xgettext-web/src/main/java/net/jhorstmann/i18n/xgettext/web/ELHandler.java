@@ -1,5 +1,6 @@
 package net.jhorstmann.i18n.xgettext.web;
 
+import net.jhorstmann.i18n.tools.xml.DefaultContentHandler;
 import javax.el.ELException;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;

@@ -1,5 +1,6 @@
 package net.jhorstmann.i18n.xgettext.web;
 
+import net.jhorstmann.i18n.tools.xml.DefaultContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
