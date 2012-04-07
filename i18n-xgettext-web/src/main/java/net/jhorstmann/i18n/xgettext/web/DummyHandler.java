@@ -9,10 +9,10 @@ import org.xml.sax.SAXException;
 public class DummyHandler extends DefaultContentHandler {
 
     private static final Logger log = LoggerFactory.getLogger(DummyHandler.class);
-    private ExtractorHandler extractor;
+    private WebMessageExtractor extractor;
     private int depth;
 
-    public DummyHandler(ExtractorHandler extractor) {
+    public DummyHandler(WebMessageExtractor extractor) {
         this.extractor = extractor;
         this.depth = 0;
     }

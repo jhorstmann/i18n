@@ -6,11 +6,11 @@ import org.xml.sax.SAXException;
 
 public abstract class FacetHandler extends DefaultContentHandler {
 
-    private final ExtractorHandler extractor;
+    private final WebMessageExtractor extractor;
     private final ComponentHandler component;
     private final StringBuilder text;
 
-    public FacetHandler(ExtractorHandler extractor, ComponentHandler component, Attributes atts) {
+    public FacetHandler(WebMessageExtractor extractor, ComponentHandler component, Attributes atts) {
         this.extractor = extractor;
         this.component = component;
         this.text = new StringBuilder();

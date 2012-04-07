@@ -3,7 +3,7 @@ package net.jhorstmann.i18n.xgettext.web;
 import org.xml.sax.Attributes;
 
 public class MessageFacetHandler extends FacetHandler {
-    public MessageFacetHandler(ExtractorHandler extractor, ComponentHandler component, Attributes atts) {
+    public MessageFacetHandler(WebMessageExtractor extractor, ComponentHandler component, Attributes atts) {
         super(extractor, component, atts);
     }
 

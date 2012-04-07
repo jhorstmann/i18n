@@ -13,10 +13,10 @@ import org.xml.sax.SAXException;
 public class ELHandler extends DefaultContentHandler {
 
     private static final String I18N_NS = "http://jhorstmann.net/taglib/i18n";
-    private ExtractorHandler extractor;
+    private WebMessageExtractor extractor;
     private StringBuilder buffer;
 
-    public ELHandler(ExtractorHandler extractor) {
+    public ELHandler(WebMessageExtractor extractor) {
         this.extractor = extractor;
         this.buffer = new StringBuilder();
     }

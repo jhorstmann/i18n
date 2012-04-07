@@ -1,40 +1,29 @@
-package net.jhorstmann.i18n.xgettext.web;
+package net.jhorstmann.i18n.tools.xgettext;
 
 import net.jhorstmann.i18n.tools.xml.NamespaceContextImpl;
 import net.jhorstmann.i18n.tools.xml.NestedContentHandler;
 import java.util.Iterator;
-import java.util.List;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import net.jhorstmann.i18n.tools.MessageBundle;
 
-import net.jhorstmann.i18n.xgettext.MessageFunction;
 import org.fedorahosted.tennera.jgettext.Message;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-public class ExtractorHandler extends NestedContentHandler implements Locator, NamespaceContext {
-    private static final Logger log = LoggerFactory.getLogger(ExtractorHandler.class);
+public class AbstractExtractorHandler extends NestedContentHandler implements Locator, NamespaceContext {
     
     private final NamespaceContextImpl namespaceContext;
     private final MessageBundle bundle;
     private Locator locator;
-    private List<MessageFunction> functions;
 
-    public ExtractorHandler(XMLReader xmlreader, MessageBundle bundle, List<MessageFunction> functions) {
+    public AbstractExtractorHandler(XMLReader xmlreader, MessageBundle bundle) {
         super(xmlreader);
         this.bundle = bundle;
         this.namespaceContext = new NamespaceContextImpl();
-        this.functions = functions;
     }
 
-    List<MessageFunction> getFunctions() {
-        return functions;
-    }
-    
     private Message createMessage(String msgid) {
         Message msg = new Message();
         if (locator != null) {
@@ -95,16 +84,6 @@ public class ExtractorHandler extends NestedContentHandler implements Locator, N
         bundle.addMessage(msg);
     }
     
-    @Override
-    public void startDocument() throws SAXException {
-        pushHandler(new ELHandler(this));
-    }
-
-    @Override
-    public void endDocument() throws SAXException {
-        popHandler();
-    }
-
     @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
         namespaceContext.startPrefixMapping(prefix, uri);

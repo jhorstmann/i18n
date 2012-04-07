@@ -13,14 +13,14 @@ import org.xml.sax.SAXException;
 public class ComponentHandler extends DefaultContentHandler implements Constants {
     private Logger log = LoggerFactory.getLogger(ComponentHandler.class);
 
-    private final ExtractorHandler extractor;
+    private final WebMessageExtractor extractor;
     private final StringBuilder text;
     private String message;
     private String context;
     private String plural;
     private String comment;
 
-    public ComponentHandler(ExtractorHandler extractor, Attributes atts) {
+    public ComponentHandler(WebMessageExtractor extractor, Attributes atts) {
         this.extractor = extractor;
         this.text = new StringBuilder();
         this.message = atts.getValue(XMLConstants.NULL_NS_URI, ATTR_MSGID);

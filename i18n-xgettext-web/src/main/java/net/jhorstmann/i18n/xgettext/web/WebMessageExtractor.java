@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.el.ELException;
 import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.AbstractExtractorHandler;
 import net.jhorstmann.i18n.tools.xml.XMLHelper;
 import net.jhorstmann.i18n.xgettext.MessageExtractor;
 import net.jhorstmann.i18n.xgettext.MessageExtractorException;
@@ -19,7 +20,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-public class WebMessageExtractor implements MessageExtractor {
+public class WebMessageExtractor extends AbstractExtractorHandler implements MessageExtractor {
 
     private static final Logger log = LoggerFactory.getLogger(WebMessageExtractor.class);
 
@@ -37,9 +38,6 @@ public class WebMessageExtractor implements MessageExtractor {
         DEFAULT_MESSAGE_FUNCTIONS = Collections.unmodifiableList(functions);
     }
 
-    
-    private MessageBundle bundle;
-    private XMLReader xmlreader;
     private List<MessageFunction> functions;
 
     public WebMessageExtractor(MessageBundle bundle) {
@@ -47,11 +45,24 @@ public class WebMessageExtractor implements MessageExtractor {
     }
     
     public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
-        this.bundle = bundle;
-        this.xmlreader = XMLHelper.createXMLReader();
+        super(XMLHelper.createXMLReader(), bundle);
         this.functions = functions;
     }
-    
+
+    public List<MessageFunction> getFunctions() {
+        return functions;
+    }
+
+    @Override
+    public void startDocument() throws SAXException {
+        pushHandler(new ELHandler(this));
+    }
+
+    @Override
+    public void endDocument() throws SAXException {
+        popHandler();
+    }
+
     @Override
     public final void extractMessages(File file) throws IOException, MessageExtractorException {
         String systemId = file.getAbsolutePath();
@@ -67,7 +78,8 @@ public class WebMessageExtractor implements MessageExtractor {
     }
 
     void extractMessages(InputSource input) throws IOException, MessageExtractorException {
-        xmlreader.setContentHandler(new ExtractorHandler(xmlreader, bundle, functions));
+        XMLReader xmlreader = getXMLReader();
+        xmlreader.setContentHandler(this);
         try {
             xmlreader.parse(input);
         } catch (SAXException ex) {

@@ -13,10 +13,10 @@ import org.slf4j.LoggerFactory;
 
 public class GettextNodeVisitor implements NodeVisitor, Constants {
     private static final Logger log = LoggerFactory.getLogger(GettextNodeVisitor.class);
-    private ExtractorHandler extractor;
+    private WebMessageExtractor extractor;
     private List<MessageFunction> functions;
 
-    public GettextNodeVisitor(ExtractorHandler extractor) {
+    public GettextNodeVisitor(WebMessageExtractor extractor) {
         this.extractor = extractor;
         this.functions = extractor.getFunctions();
     }
