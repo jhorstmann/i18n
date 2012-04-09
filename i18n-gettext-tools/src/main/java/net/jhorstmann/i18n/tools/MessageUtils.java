@@ -47,7 +47,8 @@ class MessageUtils {
             }
             return sb.toString();
         } else {
-            return message.getMsgstr();
+            String msgstr = message.getMsgstr();
+            return msgstr == null ? "" : msgstr;
         }
     }
 
