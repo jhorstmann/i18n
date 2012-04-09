@@ -42,11 +42,14 @@ public class AbstractExtractorHandler extends NestedContentHandler implements Lo
         return msg;
     }
     
-    public void addMessage(String msgid) {
-        bundle.addMessage(createMessage(msgid));
+    public Message addMessage(String msgid) {
+        Message msg = createMessage(msgid);
+        msg.setMsgstr(msgid);
+        bundle.addMessage(msg);
+        return msg;
     }
     
-    public void addMessage(String context, String message, String plural, String comment) {
+    public Message addMessage(String context, String message, String plural, String comment) {
         if (message == null) {
             throw new IllegalArgumentException("Message id must not be null");
         }
@@ -63,25 +66,29 @@ public class AbstractExtractorHandler extends NestedContentHandler implements Lo
         }
         
         bundle.addMessage(msg);
+        return msg;
     }
     
-    public void addMessageWithContext(String msgctx, String msgid) {
+    public Message addMessageWithContext(String msgctx, String msgid) {
         Message msg = createMessage(msgid);
         msg.setMsgctxt(msgctx);
         bundle.addMessage(msg);
+        return msg;
     }
     
-    public void addMessageWithPlural(String msgidSingular, String msgidPlural) {
+    public Message addMessageWithPlural(String msgidSingular, String msgidPlural) {
         Message msg = createMessage(msgidSingular);
         msg.setMsgidPlural(msgidPlural);
         bundle.addMessage(msg);
+        return msg;
     }
     
-    public void addMessageWithContextAndPlural(String msgctx, String msgidSingular, String msgidPlural) {
+    public Message addMessageWithContextAndPlural(String msgctx, String msgidSingular, String msgidPlural) {
         Message msg = createMessage(msgidSingular);
         msg.setMsgctxt(msgctx);
         msg.setMsgidPlural(msgidPlural);
         bundle.addMessage(msg);
+        return msg;
     }
     
     @Override
