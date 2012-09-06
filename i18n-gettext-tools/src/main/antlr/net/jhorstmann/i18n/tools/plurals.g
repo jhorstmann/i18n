@@ -31,15 +31,15 @@ options {
 }
 
 plurals returns [PluralForms pf = null] { int i; Expression e = null; }
-    : i=nplurals e=plural EOF { pf = new PluralForms(i, e); }
+    : i=nplurals SEMI e=plural (SEMI)* EOF { pf = new PluralForms(i, e); }
     ;
 
 nplurals returns [int n = 0]
-    : NPLURALS ASSIGN i:INT SEMI { n = Integer.parseInt(i.getText()); }
+    : NPLURALS ASSIGN i:INT { n = Integer.parseInt(i.getText()); }
     ;
 
 plural returns [Expression e = null]
-    :  PLURAL ASSIGN e=root_expr SEMI
+    :  PLURAL ASSIGN e=root_expr
     ;
 
 expression returns [Expression r = null]

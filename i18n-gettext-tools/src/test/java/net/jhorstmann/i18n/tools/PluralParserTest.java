@@ -30,6 +30,26 @@ public class PluralParserTest {
     }
 
     @Test
+    public void testMissingSemicolon() throws RecognitionException, TokenStreamException {
+        PluralForms pf = parsePluralForms("nplurals=2; plural=n == 1 ? 0 : 1");
+        Assert.assertNotNull(pf);
+        Assert.assertEquals(2, pf.getNumPlurals());
+        Expression expr = pf.getExpression();
+        Assert.assertNotNull(expr);
+        Assert.assertTrue(expr.isBool());
+    }
+
+    @Test
+    public void testAdditionalSemicolon() throws RecognitionException, TokenStreamException {
+        PluralForms pf = parsePluralForms("nplurals=2; plural=n == 1 ? 0 : 1;;");
+        Assert.assertNotNull(pf);
+        Assert.assertEquals(2, pf.getNumPlurals());
+        Expression expr = pf.getExpression();
+        Assert.assertNotNull(expr);
+        Assert.assertTrue(expr.isBool());
+    }
+
+    @Test
     public void testNumExpression() throws RecognitionException, TokenStreamException {
         Expression e = parseExpression("n");
         Assert.assertNotNull(e);
