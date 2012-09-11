@@ -76,9 +76,9 @@ public class DistMojo extends AbstractGettextMojo {
 
         DirectoryScanner ds = new DirectoryScanner();
         ds.setBasedir(poDirectory);
-        ds.setIncludes(new String[]{"**/*.po"});
+        ds.setIncludes(getPoIncludes());
+        ds.setExcludes(getPoExcludes());
         ds.scan();
-
 
         boolean processedSourceLocale = false;
 

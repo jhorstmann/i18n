@@ -41,6 +41,14 @@ abstract class AbstractGettextMojo extends AbstractMojo {
      */
     File poDirectory;
     /**
+     * @parameter
+     */
+    String[] poIncludes;
+    /**
+     * @parameter
+     */
+    String[] poExcludes;
+    /**
      * @parameter default-value="${project.basedir}/src/main/po/keys.pot"
      */
     File keysFile;
@@ -63,6 +71,14 @@ abstract class AbstractGettextMojo extends AbstractMojo {
 
     String[] getWebappExcludes() {
         return webappExcludes != null ? webappExcludes : new String[]{};
+    }
+
+    String[] getPoIncludes() {
+        return poIncludes != null ? poIncludes : new String[]{"**/*.po"};
+    }
+
+    String[] getPoExcludes() {
+        return poExcludes != null ? poExcludes : new String[]{};
     }
 
     List<MessageFunction> getJavaFunctions() {
