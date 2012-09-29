@@ -34,7 +34,8 @@ public class DistMojo extends AbstractGettextMojo {
 
     private static String getLocale(File file) {
         String fileName = file.getName();
-        return fileName.substring(0, fileName.lastIndexOf('.'));
+        // TODO: check correct locale name for "sr@latin"
+        return fileName.substring(0, fileName.lastIndexOf('.')).replace("@", "_");
     }
 
     private void processLocaleImpl(File inputFile, String locale) throws IOException, MojoExecutionException {
