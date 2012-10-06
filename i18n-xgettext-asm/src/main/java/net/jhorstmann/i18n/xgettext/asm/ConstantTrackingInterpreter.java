@@ -324,7 +324,7 @@ public class ConstantTrackingInterpreter implements Interpreter {
             if (value instanceof ConstantStringValue) {
                 message = ((ConstantStringValue) value).getConstantValue();
             } else {
-                log.warn("Message id for {} in {} is not constant", new Object[]{functionName, sourceReference});
+                log.warn("Message id in parameter {} for function {} in class {} is not constant", new Object[]{messageIdx, functionName, sourceReference});
                 return;
             }
         }
@@ -333,7 +333,7 @@ public class ConstantTrackingInterpreter implements Interpreter {
             if (value instanceof ConstantStringValue) {
                 context = ((ConstantStringValue) value).getConstantValue();
             } else {
-                log.warn("Message context for {} in {} is not constant", new Object[]{functionName, sourceReference});
+                log.warn("Message context in parameter {} for function {} in class {} is not constant", new Object[]{contextIdx, functionName, sourceReference});
                 return;
             }
         }
@@ -342,7 +342,7 @@ public class ConstantTrackingInterpreter implements Interpreter {
             if (value instanceof ConstantStringValue) {
                 plural = ((ConstantStringValue) value).getConstantValue();
             } else {
-                log.warn("Message plural for {} in {} is not constant", new Object[]{functionName, sourceReference});
+                log.warn("Message plural in parameter {} for function {} in class {} is not constant", new Object[]{pluralIdx, functionName, sourceReference});
                 return;
             }
         }

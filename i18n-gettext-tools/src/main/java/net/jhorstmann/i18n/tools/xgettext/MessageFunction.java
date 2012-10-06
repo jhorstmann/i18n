@@ -150,6 +150,7 @@ public class MessageFunction {
         int messageIndex = -1;
         int contextIndex = -1;
         int pluralIndex = -1;
+        boolean isConstructor = "<init>".equals(methodName);
         String[] params = methodParams.split("\\s*,\\s*");
         StringBuilder desc = new StringBuilder();
         desc.append("(");
@@ -159,11 +160,11 @@ public class MessageFunction {
             if (typeAndName.length > 1) {
                 String name = typeAndName[1];
                 if ("context".equals(name)) {
-                    contextIndex = i;
+                    contextIndex = isConstructor ? i+1 : i;
                 } else if ("message".equals(name)) {
-                    messageIndex = i;
+                    messageIndex = isConstructor ? i+1 : i;
                 } else if ("plural".equals(name)) {
-                    pluralIndex = i;
+                    pluralIndex = isConstructor ? i+1 : i;
                 }
             }
             if (typeAndName[0].length() > 0) {

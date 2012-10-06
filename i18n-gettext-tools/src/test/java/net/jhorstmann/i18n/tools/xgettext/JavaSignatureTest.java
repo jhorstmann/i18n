@@ -74,6 +74,17 @@ public class JavaSignatureTest {
         Assert.assertEquals(0, fn.getMessageIndex());
     }
 
+
+    @Test
+    public void testVarArgsUnqualified() {
+        MessageFunction fn = MessageFunction.fromJava(CLS, "String tr(String message, Object...)");
+
+        Assert.assertEquals(NS, fn.getNamespace());
+        Assert.assertEquals(FN, fn.getName());
+        Assert.assertEquals("(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;", fn.getDescription());
+        Assert.assertEquals(0, fn.getMessageIndex());
+    }
+
     @Test
     public void testReturnTypeQualified() {
         MessageFunction fn = MessageFunction.fromJava(CLS, "java.lang.String tr(java.lang.String message, java.lang.String... params)");
@@ -106,11 +117,20 @@ public class JavaSignatureTest {
 
     @Test
     public void testConstructor() {
+        MessageFunction fn = MessageFunction.fromJava(CLS + ".<init>()");
+        Assert.assertEquals(NS, fn.getNamespace());
+        Assert.assertEquals("<init>", fn.getName());
+        Assert.assertEquals("()V", fn.getDescription());
+        Assert.assertEquals(-1, fn.getMessageIndex());
+    }
+
+    @Test
+    public void testConstructorArgs() {
         MessageFunction fn = MessageFunction.fromJava(CLS + ".<init>(java.lang.String message)");
         Assert.assertEquals(NS, fn.getNamespace());
         Assert.assertEquals("<init>", fn.getName());
         Assert.assertEquals("(Ljava/lang/String;)V", fn.getDescription());
-        Assert.assertEquals(0, fn.getMessageIndex());
+        Assert.assertEquals("First argument to constructor is the uninitialized object", 1, fn.getMessageIndex());
     }
     
 }
