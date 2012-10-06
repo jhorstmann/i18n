@@ -1,6 +1,21 @@
 package net.jhorstmann.i18n.tools.xgettext;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MessageFunction {
+
+    private static final Pattern SIGNATURE_PATTERN;
+    static {
+        String name = "\\w+";
+        String packagePrefix = "(?:" + name + "\\.)*";
+        String methodName = packagePrefix + "(?:" + name + "|<init>)";
+        String typeName = "(?:" + packagePrefix + name + "(?:\\[\\])*(?:\\.\\.\\.)?)";
+        String sp = "\\s+";
+        String param = typeName + "(?:" + sp + name + ")?";
+        String paramList = param + "(?:\\s*,\\s*" + param + ")*";
+        SIGNATURE_PATTERN = Pattern.compile("(?:(" + typeName + ")" + sp + ")?" + "(" + methodName + ")\\(((?:" + paramList + ")?)\\)");
+    }
 
     private String namespace;
     private String name;
@@ -23,6 +38,19 @@ public class MessageFunction {
         return idx;
     }
     
+    public static MessageFunction fromEL(String signature) {
+        String namespace;
+        if (signature.charAt(0) == '{') {
+            int idx = signature.indexOf('}', 1);
+            namespace = signature.substring(1, idx);
+            signature = signature.substring(idx+1);
+        } else {
+            namespace = "";
+        }
+
+        return fromEL(namespace, signature);
+    }
+
     public static MessageFunction fromEL(String namespace, String signature) {
         int idx = validateParamIdx(signature);
         String methodName = signature.substring(0, idx).trim();
@@ -45,18 +73,34 @@ public class MessageFunction {
         return new MessageFunction(namespace, methodName, null, messageIndex, contextIndex, pluralIndex, length);
     }
 
-    public static MessageFunction fromJava(String className, String signature) {
-        int idx = validateParamIdx(signature);
-        String[] typeAndName = signature.substring(0, idx).split("\\s+");
-        String returnType, methodName;
-        if (typeAndName.length == 1) {
-            returnType = "void";
-            methodName = typeAndName[0];
+    public static MessageFunction fromJava(String signature) {
+        Matcher matcher = SIGNATURE_PATTERN.matcher(signature);
+        if (matcher.matches()) {
+            String returnType = matcher.group(1);
+            String methodName = matcher.group(2);
+            String parameters = matcher.group(3);
+            String className;
+            int idx = methodName.lastIndexOf('.');
+            if (idx >= 0) {
+                className = methodName.substring(0, idx);
+                methodName = methodName.substring(idx+1);
+            } else {
+                className = "";
+            }
+            if (returnType == null) {
+                returnType = "void";
+            }
+            return fromJava(className, returnType, methodName, parameters);
+
         } else {
-            returnType = typeAndName[0];
-            methodName = typeAndName[1];
+            throw new IllegalArgumentException("Invalid java method signature '" + signature + "'");
         }
-        return fromJava(className, returnType, methodName, signature.substring(idx + 1, signature.length() - 1));
+    }
+
+    public static MessageFunction fromJava(String className, String signature) {
+        MessageFunction fn = fromJava(signature);
+        fn.setNamespace(className.replace('.', '/'));
+        return fn;
     }
 
     private static void appendInternalName(StringBuilder desc, String javaType) {

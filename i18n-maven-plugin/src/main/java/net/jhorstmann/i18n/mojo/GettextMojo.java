@@ -24,7 +24,7 @@ public class GettextMojo extends AbstractGettextMojo {
         }
 
         if (webappDirectory.exists()) {
-            MessageExtractor extractor = new WebMessageExtractor(bundle);
+            MessageExtractor extractor = new WebMessageExtractor(bundle, getELFunctions());
             errorCount += extractMessages(extractor, webappDirectory, getWebappIncludes(), getWebappExcludes());
         }
 

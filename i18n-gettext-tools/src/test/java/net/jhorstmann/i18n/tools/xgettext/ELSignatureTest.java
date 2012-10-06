@@ -18,6 +18,16 @@ public class ELSignatureTest {
     }
 
     @Test
+    public void testInlineNamespace() {
+        MessageFunction fn = MessageFunction.fromEL("{" + NS + "}tr()");
+        Assert.assertEquals("tr", fn.getName());
+        Assert.assertEquals(NS, fn.getNamespace());
+        Assert.assertEquals(-1, fn.getMessageIndex());
+        Assert.assertEquals(-1, fn.getContextIndex());
+        Assert.assertEquals(-1, fn.getPluralIndex());
+    }
+
+    @Test
     public void testMsg() {
         MessageFunction fn = MessageFunction.fromEL(NS, "tr(message)");
         Assert.assertEquals("tr", fn.getName());

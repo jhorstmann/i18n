@@ -7,6 +7,7 @@ import org.codehaus.plexus.util.DirectoryScanner;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import net.jhorstmann.i18n.tools.MessageBundle;
@@ -59,11 +60,11 @@ abstract class AbstractGettextMojo extends AbstractMojo {
     /**
      * @parameter
      */
-    MessageFunction[] javaFunctions;
+    String[] javaFunctions;
     /**
      * @parameter
      */
-    MessageFunction[] elFunctions;
+    String[] elFunctions;
 
     String[] getWebappIncludes() {
         return webappIncludes != null ? webappIncludes : new String[]{"**/*.xhtml"};
@@ -82,7 +83,29 @@ abstract class AbstractGettextMojo extends AbstractMojo {
     }
 
     List<MessageFunction> getJavaFunctions() {
-        return javaFunctions != null ? Arrays.asList(javaFunctions) : AsmMessageExtractor.DEFAULT_MESSAGE_FUNCTIONS;
+        if (javaFunctions == null) {
+            return AsmMessageExtractor.DEFAULT_MESSAGE_FUNCTIONS;
+        } else {
+            int len = javaFunctions.length;
+            MessageFunction[] functions = new MessageFunction[len];
+            for (int i=0; i<len; i++) {
+                functions[i] = MessageFunction.fromJava(javaFunctions[i]);
+            }
+            return Arrays.asList(functions);
+        }
+    }
+
+    List<MessageFunction> getELFunctions() {
+        if (elFunctions == null) {
+            return AsmMessageExtractor.DEFAULT_MESSAGE_FUNCTIONS;
+        } else {
+            int len = elFunctions.length;
+            MessageFunction[] functions = new MessageFunction[len];
+            for (int i=0; i<len; i++) {
+                functions[i] = MessageFunction.fromEL(elFunctions[i]);
+            }
+            return Arrays.asList(functions);
+        }
     }
 
     private MessageBundle loadMessageBundleImpl() throws IOException {
