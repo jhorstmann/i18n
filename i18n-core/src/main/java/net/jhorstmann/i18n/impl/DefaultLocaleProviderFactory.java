@@ -22,6 +22,7 @@ public class DefaultLocaleProviderFactory extends LocaleProviderFactory {
 
     @Override
     public boolean isEnvironmentSupported() {
+    	// is always active
         return true;
     }
     
