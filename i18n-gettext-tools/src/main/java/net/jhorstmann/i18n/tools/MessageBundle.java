@@ -76,7 +76,8 @@ public class MessageBundle implements Iterable<Message> {
     private final LinkedHashMap<MessageBundleKey, Message> messages = new LinkedHashMap<MessageBundleKey, Message>();
     private String basename;
     private String locale;
-    
+    private String pkgName;
+    private String pkgVersion;
     private boolean template;
     private String footerComment;
 
