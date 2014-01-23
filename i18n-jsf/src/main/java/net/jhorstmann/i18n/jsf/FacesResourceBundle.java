@@ -3,15 +3,17 @@ package net.jhorstmann.i18n.jsf;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import javax.faces.context.FacesContext;
+
+import net.jhorstmann.i18n.I18N;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Tries to look up a ResourceBundle with the basename configured using
- * the {@value #KEY_RESOURCE_BUNDLE} init parameter in web.xml. If that
- * fails it uses the value of the {@value #KEY_RESOURCE_BUNDLE_VAR} init
- * parameter to get a ResourceBundle using
+ * Tries to look up a ResourceBundle with the basename configured using the {@value #KEY_RESOURCE_BUNDLE} init parameter in web.xml. If that fails it uses the
+ * value of the {@value #KEY_RESOURCE_BUNDLE_VAR} init parameter to get a ResourceBundle using
  * {@link javax.faces.application.Application#getResourceBundle(javax.faces.context.FacesContext, java.lang.String)}.
  * 
  * @author Jörn Horstmann
@@ -46,6 +48,9 @@ public class FacesResourceBundle {
     }
 
     public static ResourceBundle getResourceBundle(FacesContext ctx, Locale locale) {
+        if (log.isDebugEnabled()) {
+            log.debug("Lookup for resource-bundle over FacesContext with key=<{}>", KEY_RESOURCE_BUNDLE);
+        }
         Map<Object, Object> attrs = ctx.getAttributes();
         ResourceBundle bundle = (ResourceBundle) attrs.get(KEY_RESOURCE_BUNDLE);
         if (bundle == null) {
