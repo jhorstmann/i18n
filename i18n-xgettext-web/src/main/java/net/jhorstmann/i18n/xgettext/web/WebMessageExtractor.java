@@ -41,11 +41,19 @@ public class WebMessageExtractor extends AbstractExtractorHandler implements Mes
     private List<MessageFunction> functions;
 
     public WebMessageExtractor(MessageBundle bundle) {
-        this(bundle, DEFAULT_MESSAGE_FUNCTIONS);
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, null, false);
     }
-    
+
+    public WebMessageExtractor(MessageBundle bundle, File rootDir, boolean relativizeSrcRefPaths) {
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, rootDir, relativizeSrcRefPaths);
+    }
+
     public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
-        super(XMLHelper.createXMLReader(), bundle);
+        this(bundle, functions, null, false);
+    }
+
+    public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions, File rootDir, boolean relativizeSrcRefPaths) {
+        super(XMLHelper.createXMLReader(), bundle, rootDir, relativizeSrcRefPaths);
         this.functions = functions;
     }
 
