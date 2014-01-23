@@ -27,18 +27,17 @@ import java.io.File;
 
 /**
  * Invokes the msgmerge tool to update po files.
- *
+ * 
  * @author Tammo van Lessen
  * @author Jörn Horstmann
  * @goal merge
  * @phase generate-resources
  */
-public class MergeMojo
-        extends AbstractGettextMojo {
+public class MergeMojo extends AbstractGettextMojo {
 
     /**
      * The msgmerge command.
-     *
+     * 
      * @parameter expression="${msgmergeCmd}" default-value="msgmerge"
      * @required
      */
@@ -49,7 +48,7 @@ public class MergeMojo
 
         DirectoryScanner ds = new DirectoryScanner();
         ds.setBasedir(poDirectory);
-        ds.setIncludes(new String[]{"**/*.po"});
+        ds.setIncludes(new String[] { "**/*.po" });
         ds.scan();
         String[] files = ds.getIncludedFiles();
         for (int i = 0; i < files.length; i++) {
@@ -59,7 +58,8 @@ public class MergeMojo
             cl.createArg().setValue("-q");
             cl.createArg().setValue("--backup=numbered");
             cl.createArg().setValue("-U");
-            cl.createArg().setFile(new File(poDirectory, files[i]));
+            File poFile = new File(poDirectory, files[i]);
+            cl.createArg().setFile(poFile);
             cl.createArg().setFile(keysFile);
 
             getLog().debug("Executing: " + cl.toString());
@@ -67,6 +67,9 @@ public class MergeMojo
             StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
             try {
                 CommandLineUtils.executeCommandLine(cl, out, err);
+                if (poFile.exists() && buildContext != null) {
+                    buildContext.refresh(poFile);
+                }
             } catch (CommandLineException e) {
                 throw new MojoExecutionException("Could not execute " + msgmergeCmd, e);
             }

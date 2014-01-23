@@ -24,7 +24,7 @@ import java.util.StringTokenizer;
 // should use a common library
 class GettextUtils {
     private GettextUtils() {
-        
+
     }
 
     public static String getJavaLocale(String locale) {
@@ -32,7 +32,7 @@ class GettextUtils {
             throw new IllegalArgumentException();
         }
 
-        List tokens = new ArrayList(3);
+        List<String> tokens = new ArrayList<String>(3);
         StringTokenizer t = new StringTokenizer(locale, "_");
         while (t.hasMoreTokens()) {
             tokens.add(t.nextToken());
@@ -68,7 +68,7 @@ class GettextUtils {
         }
 
         StringBuffer sb = new StringBuffer();
-        for (Iterator it = tokens.iterator(); it.hasNext();) {
+        for (Iterator<String> it = tokens.iterator(); it.hasNext();) {
             String token = (String) it.next();
             sb.append(token);
             if (it.hasNext()) {
