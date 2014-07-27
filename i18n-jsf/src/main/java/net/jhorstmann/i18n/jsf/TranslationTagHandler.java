@@ -18,7 +18,7 @@ public class TranslationTagHandler extends ComponentHandler {
         TagHelper.applyHandler(ctx, tag, nextHandler, comp, "message");
         if (comp.getAttributes().containsKey("plural")) {
             TagAttribute num = getRequiredAttribute("n");
-            assert(num != null);
+            assert (num != null);
         }
     }
 }

@@ -5,14 +5,26 @@ import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
 import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
 import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 import net.jhorstmann.i18n.xgettext.asm.AsmMessageExtractor;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
+import org.fedorahosted.tennera.jgettext.HeaderFields;
+import org.fedorahosted.tennera.jgettext.HeaderUtil;
+import org.fedorahosted.tennera.jgettext.Message;
+import org.sonatype.plexus.build.incremental.BuildContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
+
+import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
+import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 
 abstract class AbstractGettextMojo extends AbstractMojo {
 
@@ -65,20 +77,57 @@ abstract class AbstractGettextMojo extends AbstractMojo {
      */
     String[] elFunctions;
 
+    /**
+     * Skip this mojo.
+     *
+     * @parameter expression="${skip}" default-value="false"
+     */
+    protected boolean skip;
+
+    /**
+     * @description E-Mail-address for message-bugs
+     * @parameter expression="${msgidBugsAddress}"
+     */
+    protected String msgidBugsAddress;
+
+    /**
+     * @description Name of the project/package
+     * @parameter expression="${pkgName}" default-value="${project.artifactId}"
+     */
+    protected String pkgName;
+
+    /**
+     * @description Version of the project/package
+     * @parameter expression="${pkgVersion}" default-value="${project.version}"
+     */
+    protected String pkgVersion;
+
+    /** @parameter default-value="${project}" */
+    protected org.apache.maven.project.MavenProject mavenProject;
+
+    /**
+     * @parameter default-value="${basedir}"
+     */
+    protected File projectRoot;
+
+    // Injection of the eclipse-buildcontext for m2e-compatibility
+    /** @component */
+    protected BuildContext buildContext;
+
     String[] getWebappIncludes() {
-        return webappIncludes != null ? webappIncludes : new String[]{"**/*.xhtml", "**/*.jspx"};
+        return webappIncludes != null ? webappIncludes : new String[]{ "**/*.xhtml", "**/*.jspx" };
     }
 
     String[] getWebappExcludes() {
-        return webappExcludes != null ? webappExcludes : new String[]{};
+        return webappExcludes != null ? webappExcludes : new String[] {};
     }
 
     String[] getPoIncludes() {
-        return poIncludes != null ? poIncludes : new String[]{"**/*.po"};
+        return poIncludes != null ? poIncludes : new String[] { "**/*.po" };
     }
 
     String[] getPoExcludes() {
-        return poExcludes != null ? poExcludes : new String[]{};
+        return poExcludes != null ? poExcludes : new String[] {};
     }
 
     List<MessageFunction> getJavaFunctions() {
@@ -112,6 +161,7 @@ abstract class AbstractGettextMojo extends AbstractMojo {
             getLog().info("Loading existing keys from " + keysFile);
             return MessageBundle.loadCatalog(keysFile);
         } else {
+            getLog().info("Creating new message-bundle");
             return new MessageBundle();
         }
     }
@@ -133,11 +183,17 @@ abstract class AbstractGettextMojo extends AbstractMojo {
                 throw new IOException("Could not create directory for keys file");
             }
         }
-        getLog().debug("Saving keys to " + keysFile);
+        if (getLog().isDebugEnabled()) {
+            getLog().debug(MessageFormat.format("Saving keys to {0} <{1}>", bundle.isTemplate() ? "po-template" : "po-catalog", keysFile));
+        }
         bundle.storeCatalog(keysFile);
+        if (buildContext != null) {
+            buildContext.refresh(keysFile);
+        }
     }
 
-    void saveMessageBundle(MessageBundle bundle) throws MojoExecutionException {
+    protected void saveMessageBundle(MessageBundle bundle) throws MojoExecutionException {
+        fillBundleHeader(bundle);
         try {
             saveMessageBundleImpl(bundle);
         } catch (IOException ex) {
@@ -145,9 +201,28 @@ abstract class AbstractGettextMojo extends AbstractMojo {
         }
     }
 
+    protected void fillBundleHeader(MessageBundle bundle) {
+        Message header = bundle.getHeaderMessage();
+        if (header == null) {
+            getLog().debug("Create new default-header...");
+            header = HeaderUtil.generateDefaultHeader();
+        }
+        HeaderFields fields = HeaderFields.wrap(header);
+
+        if (StringUtils.isNotEmpty(msgidBugsAddress)) {
+            getLog().debug(MessageFormat.format("Inserting defined value <{0}>=<{1}>", HeaderFields.KEY_ReportMsgidBugsTo, msgidBugsAddress));
+            fields.setValue(HeaderFields.KEY_ReportMsgidBugsTo, msgidBugsAddress);
+        }
+        if (StringUtils.isNotEmpty(pkgName) || StringUtils.isNotEmpty(pkgVersion))
+            fields.setValue(HeaderFields.KEY_ProjectIdVersion, MessageFormat.format("{0} {1}", pkgName, pkgVersion));
+        fields.unwrap(header);
+        bundle.addMessage(header);
+    }
+
     int extractMessages(MessageExtractor extractor, File basedir, String[] includes, String[] excludes) throws MojoExecutionException {
 
-        getLog().debug("Creating DirectoryScanner with basedir " + basedir + " including " + Arrays.toString(includes) + " and excluding " + Arrays.toString(excludes));
+        getLog().debug(
+                "Creating DirectoryScanner with basedir " + basedir + " including " + Arrays.toString(includes) + " and excluding " + Arrays.toString(excludes));
 
         DirectoryScanner scanner = new DirectoryScanner();
         scanner.setBasedir(basedir);

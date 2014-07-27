@@ -1,13 +1,5 @@
 package net.jhorstmann.i18n.xgettext.web;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.el.ELException;
 import net.jhorstmann.i18n.tools.MessageBundle;
 import net.jhorstmann.i18n.tools.xgettext.AbstractExtractorHandler;
 import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
@@ -19,6 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+
+import javax.el.ELException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class WebMessageExtractor extends AbstractExtractorHandler implements MessageExtractor {
 
@@ -41,11 +42,19 @@ public class WebMessageExtractor extends AbstractExtractorHandler implements Mes
     private List<MessageFunction> functions;
 
     public WebMessageExtractor(MessageBundle bundle) {
-        this(bundle, DEFAULT_MESSAGE_FUNCTIONS);
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, null, false);
     }
-    
+
+    public WebMessageExtractor(MessageBundle bundle, File rootDir, boolean relativizeSrcRefPaths) {
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, rootDir, relativizeSrcRefPaths);
+    }
+
     public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
-        super(XMLHelper.createXMLReader(), bundle);
+        this(bundle, functions, null, false);
+    }
+
+    public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions, File rootDir, boolean relativizeSrcRefPaths) {
+        super(XMLHelper.createXMLReader(), bundle, rootDir, relativizeSrcRefPaths);
         this.functions = functions;
     }
 

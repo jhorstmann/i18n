@@ -3,18 +3,39 @@ package net.jhorstmann.i18n;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class I18N {
+    private static final Logger log = LoggerFactory.getLogger(I18N.class);
 
     private I18N() {
     }
 
+    /**
+     * Lookup for registered localeProviderFactories and returns a locale
+     * delivered by matching provider
+     * 
+     * @return locale delivered from provider
+     * @see LocaleProvider
+     */
     public static Locale getLocale() {
+        log.debug("Lookup locale-provider over serviceloader");
         LocaleProvider localeProvider = LocaleProviderFactory.newInstance().newLocaleProvider();
         return localeProvider.getLocale();
     }
 
+    /**
+     * Lookup for registered bundleProviderFactories and returns a bundle
+     * delivered by matching provider
+     * 
+     * @param locale
+     *            the Java-Locale
+     * @return resource-bundle delivered from provider
+     * @see ResourceBundleProvider
+     */
     public static ResourceBundle getBundle(Locale locale) {
+        log.debug("Lookup resourcebundle-provider over serviceloader");
         ResourceBundleProvider bundleProvider = ResourceBundleProviderFactory.newInstance().newResourceBundleProvider();
         return bundleProvider.getResourceBundle(locale);
     }
@@ -77,7 +98,8 @@ public class I18N {
         return fmt.format(params);
     }
 
-    public static String translate(ResourceBundle bundle, String context, String message, String plural, long n, Object... params) {
+    public static String translate(ResourceBundle bundle, String context, String message, String plural, long n,
+            Object... params) {
         if (context != null) {
             if (plural != null) {
                 return trnc(bundle, context, message, plural, n, params);
@@ -142,7 +164,8 @@ public class I18N {
         return trnc(getBundle(locale), context, message, plural, n, params);
     }
 
-    public static String trnc(ResourceBundle bundle, String context, String message, String plural, long n, Object... params) {
+    public static String trnc(ResourceBundle bundle, String context, String message, String plural, long n,
+            Object... params) {
         String text = GettextResourceBundle.npgettext(bundle, context, message, plural, n);
         return format(bundle, text, params);
     }
