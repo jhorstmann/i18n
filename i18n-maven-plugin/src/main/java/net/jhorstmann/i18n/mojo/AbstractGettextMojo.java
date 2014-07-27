@@ -1,5 +1,9 @@
 package net.jhorstmann.i18n.mojo;
 
+import net.jhorstmann.i18n.tools.MessageBundle;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
+import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
+import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 import net.jhorstmann.i18n.xgettext.asm.AsmMessageExtractor;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -7,13 +11,8 @@ import org.codehaus.plexus.util.DirectoryScanner;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import net.jhorstmann.i18n.tools.MessageBundle;
-import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
-import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
-import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 
 abstract class AbstractGettextMojo extends AbstractMojo {
 
@@ -67,7 +66,7 @@ abstract class AbstractGettextMojo extends AbstractMojo {
     String[] elFunctions;
 
     String[] getWebappIncludes() {
-        return webappIncludes != null ? webappIncludes : new String[]{"**/*.xhtml"};
+        return webappIncludes != null ? webappIncludes : new String[]{"**/*.xhtml", "**/*.jspx"};
     }
 
     String[] getWebappExcludes() {
