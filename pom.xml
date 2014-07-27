@@ -22,6 +22,7 @@
         <module>i18n-sample-webapp</module>
         <module>i18n-xgettext-asm</module>
         <module>i18n-xgettext-web</module>
+        <module>i18n-xgettext-struts-html</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
