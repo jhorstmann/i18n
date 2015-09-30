@@ -1,6 +1,10 @@
 A gettext based framework for i18n in Java and JSF applications
 ===============================================================
 
+
+[![Build Status](https://travis-ci.org/jhorstmann/i18n.svg?branch=master)](https://travis-ci.org/jhorstmann/i18n)
+
+
 What is gettext?
 ----------------
 
