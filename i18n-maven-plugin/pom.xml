@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>net.jhorstmann.i18n</groupId>
+        <groupId>net.jhorstmann</groupId>
         <artifactId>i18n</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -12,17 +12,17 @@
     <packaging>maven-plugin</packaging>
     <dependencies>
         <dependency>
-            <groupId>net.jhorstmann.i18n</groupId>
+            <groupId>net.jhorstmann</groupId>
             <artifactId>i18n-gettext-tools</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.jhorstmann.i18n</groupId>
+            <groupId>net.jhorstmann</groupId>
             <artifactId>i18n-xgettext-asm</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.jhorstmann.i18n</groupId>
+            <groupId>net.jhorstmann</groupId>
             <artifactId>i18n-xgettext-web</artifactId>
             <version>${project.version}</version>
         </dependency>
