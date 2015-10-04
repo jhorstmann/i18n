@@ -6,6 +6,7 @@ import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
 import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 import net.jhorstmann.i18n.xgettext.asm.AsmMessageExtractor;
 
+import net.jhorstmann.i18n.xgettext.web.WebMessageExtractor;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -145,7 +146,7 @@ abstract class AbstractGettextMojo extends AbstractMojo {
 
     List<MessageFunction> getELFunctions() {
         if (elFunctions == null) {
-            return AsmMessageExtractor.DEFAULT_MESSAGE_FUNCTIONS;
+            return WebMessageExtractor.DEFAULT_MESSAGE_FUNCTIONS;
         } else {
             int len = elFunctions.length;
             MessageFunction[] functions = new MessageFunction[len];
