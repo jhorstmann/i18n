@@ -5,6 +5,7 @@ import net.jhorstmann.i18n.tools.xgettext.MessageExtractor;
 import net.jhorstmann.i18n.tools.xgettext.MessageExtractorException;
 import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 import net.jhorstmann.i18n.xgettext.asm.AsmMessageExtractor;
+import net.jhorstmann.i18n.xgettext.web.WebMessageExtractor;
 
 import net.jhorstmann.i18n.xgettext.web.WebMessageExtractor;
 import org.apache.commons.lang.StringUtils;
