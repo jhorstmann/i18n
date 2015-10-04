@@ -50,7 +50,7 @@
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <antlr.version>2.7.6</antlr.version>
+        <antlr.version>2.7.7</antlr.version>
         <jsf.version>2.1.2</jsf.version>
         <project.build.javaVersion>1.6</project.build.javaVersion>
     </properties>
@@ -266,12 +266,12 @@
             <dependency>
                 <groupId>org.fedorahosted.tennera</groupId>
                 <artifactId>jgettext</artifactId>
-                <version>0.6</version>
+                <version>0.13</version>
             </dependency>
             <dependency>
                 <groupId>org.fedorahosted.openprops</groupId>
                 <artifactId>openprops</artifactId>
-                <version>0.5</version>
+                <version>0.6</version>
             </dependency>
             <dependency>
                 <groupId>asm</groupId>
