@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.jhorstmann</groupId>
     <artifactId>i18n</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>pom</packaging>
     <name>i18n</name>
     <description>Gettext based framework for i18n in Java and JSF applications</description>
