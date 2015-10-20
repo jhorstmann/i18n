@@ -21,7 +21,11 @@ import org.objectweb.asm.tree.analysis.Value;
 
 import static org.objectweb.asm.Opcodes.*;
 
-public class ConstantTracker implements Interpreter {
+public class ConstantTracker extends Interpreter {
+
+    public ConstantTracker() {
+        super( 1 );
+    }
     
     static final class UninitializedValue implements Value {
 

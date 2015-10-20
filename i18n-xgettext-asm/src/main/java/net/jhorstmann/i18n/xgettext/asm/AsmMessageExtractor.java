@@ -49,11 +49,11 @@ public class AsmMessageExtractor implements MessageExtractor {
     private ConstantTrackingInterpreter interpreter;
 
     public AsmMessageExtractor(MessageBundle bundle) {
-        this(bundle, DEFAULT_MESSAGE_FUNCTIONS);
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, true);
     }
 
-    public AsmMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
-        this.interpreter = new ConstantTrackingInterpreter(bundle, functions);
+    public AsmMessageExtractor(MessageBundle bundle, List<MessageFunction> functions, boolean srcRefPaths) {
+        this.interpreter = new ConstantTrackingInterpreter(bundle, functions, srcRefPaths);
     }
 
     @Override

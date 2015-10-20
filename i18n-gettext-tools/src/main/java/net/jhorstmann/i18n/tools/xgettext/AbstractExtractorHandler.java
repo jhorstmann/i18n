@@ -27,23 +27,25 @@ public class AbstractExtractorHandler extends NestedContentHandler implements Lo
     private final MessageBundle bundle;
     private Locator locator;
     private boolean relativizePaths;
+    private boolean srcRefPaths;
     File rootDir;
 
     public AbstractExtractorHandler(XMLReader xmlreader, MessageBundle bundle) {
-        this(xmlreader, bundle, null, false);
+        this(xmlreader, bundle, null, false, true);
     }
 
-    public AbstractExtractorHandler(XMLReader xmlreader, MessageBundle bundle, File rootDir, boolean relativizePaths) {
+    public AbstractExtractorHandler(XMLReader xmlreader, MessageBundle bundle, File rootDir, boolean relativizePaths, boolean srcRefPaths) {
         super(xmlreader);
         this.bundle = bundle;
         this.namespaceContext = new NamespaceContextImpl();
         this.relativizePaths = relativizePaths;
+        this.srcRefPaths = srcRefPaths;
         this.rootDir = rootDir;
     }
 
     private Message createMessage(String msgid) {
         Message msg = new Message();
-        if (locator != null) {
+        if (srcRefPaths && locator != null) {
             String systemId = locator.getSystemId();
             if (systemId != null) {
                 if (relativizePaths && rootDir != null) {

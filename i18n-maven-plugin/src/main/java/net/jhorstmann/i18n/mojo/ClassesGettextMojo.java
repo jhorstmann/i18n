@@ -21,7 +21,7 @@ public class ClassesGettextMojo extends AbstractGettextMojo {
         }
         MessageBundle bundle = loadMessageBundle();
 
-        MessageExtractor extractor = new AsmMessageExtractor(bundle, getJavaFunctions());
+        MessageExtractor extractor = new AsmMessageExtractor(bundle, getJavaFunctions(), srcRefPaths);
         int errorCount = extractMessages(extractor, classesDirectory, new String[] { "**/*.class" }, new String[] {});
 
         if (errorCount > 0) {
