@@ -38,12 +38,12 @@ public class GettextMojo extends AbstractGettextMojo {
         }
 
         if (classesDirectory.exists()) {
-            MessageExtractor extractor = new AsmMessageExtractor(bundle, getJavaFunctions());
+            MessageExtractor extractor = new AsmMessageExtractor(bundle, getJavaFunctions(), srcRefPaths);
             errorCount += extractMessages(extractor, classesDirectory, new String[] { "**/*.class" }, new String[] {});
         }
 
         if (webappDirectory.exists()) {
-            MessageExtractor extractor = new WebMessageExtractor(bundle, getELFunctions(), projectRoot, relativizeSrcRefPaths);
+            MessageExtractor extractor = new WebMessageExtractor(bundle, getELFunctions(), projectRoot, relativizeSrcRefPaths, srcRefPaths);
             errorCount += extractMessages(extractor, webappDirectory, getWebappIncludes(), getWebappExcludes());
         }
 

@@ -78,6 +78,14 @@ abstract class AbstractGettextMojo extends AbstractMojo {
      */
     String[] elFunctions;
 
+    
+    /**
+     * Report source-references
+     *
+     * @parameter expression="${srcRefPaths}" default-value="true"
+     */
+    protected boolean srcRefPaths;
+
     /**
      * Skip this mojo.
      *
@@ -114,6 +122,10 @@ abstract class AbstractGettextMojo extends AbstractMojo {
     // Injection of the eclipse-buildcontext for m2e-compatibility
     /** @component */
     protected BuildContext buildContext;
+
+    AbstractGettextMojo() {
+        this.srcRefPaths = true;
+    }
 
     String[] getWebappIncludes() {
         return webappIncludes != null ? webappIncludes : new String[]{ "**/*.xhtml", "**/*.jspx" };

@@ -26,7 +26,7 @@ public class WebappGettextMojo extends AbstractGettextMojo {
             return;
         }
         MessageBundle bundle = loadMessageBundle();
-        MessageExtractor extractor = new WebMessageExtractor(bundle, projectRoot, relativizeSrcRefPaths);
+        MessageExtractor extractor = new WebMessageExtractor(bundle, projectRoot, relativizeSrcRefPaths, srcRefPaths);
 
         int errorCount = extractMessages(extractor, webappDirectory, getWebappIncludes(), getWebappExcludes());
 

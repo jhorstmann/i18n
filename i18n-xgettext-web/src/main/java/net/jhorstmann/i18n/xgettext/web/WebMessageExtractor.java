@@ -32,9 +32,25 @@ public class WebMessageExtractor extends AbstractExtractorHandler implements Mes
         String ns = DEFAULT_NAMESPACE;
         functions.add(MessageFunction.fromEL(ns, "mark(message)"));
         functions.add(MessageFunction.fromEL(ns, "tr(message)"));
+        functions.add( MessageFunction.fromEL( ns, "tr1(message, param1)" ) );
+        functions.add( MessageFunction.fromEL( ns, "tr2(message, param1, param2)" ) );
+        functions.add( MessageFunction.fromEL( ns, "tr3(message, param1, param2, param3)" ) );
+        functions.add( MessageFunction.fromEL( ns, "tr4(message, param1, param2, param3, param4)" ) );
         functions.add(MessageFunction.fromEL(ns, "trc(context, message)"));
+        functions.add( MessageFunction.fromEL( ns, "trc1(context, message, param1)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trc2(context, message, param1, param2)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trc3(context, message, param1, param2, param3)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trc4(context, message, param1, param2, param3, param4)" ) );
         functions.add(MessageFunction.fromEL(ns, "trn(message, plural, long)"));
+        functions.add( MessageFunction.fromEL( ns, "trn1(message, plural, long, param1)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trn2(message, plural, long, param1, param2)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trn3(message, plural, long, param1, param2, param3)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trn4(message, plural, long, param1, param2, param3, param4)" ) );
         functions.add(MessageFunction.fromEL(ns, "trnc(context, message, plural, long)"));
+        functions.add( MessageFunction.fromEL( ns, "trnc1(context, message, plural, long, param1)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trnc2(context, message, plural, long, param1, param2)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trnc3(context, message, plural, long, param1, param2, param3)" ) );
+        functions.add( MessageFunction.fromEL( ns, "trnc4(context, message, plural, long, param1, param2, param3, param4)" ) );
 
         DEFAULT_MESSAGE_FUNCTIONS = Collections.unmodifiableList(functions);
     }
@@ -42,19 +58,19 @@ public class WebMessageExtractor extends AbstractExtractorHandler implements Mes
     private List<MessageFunction> functions;
 
     public WebMessageExtractor(MessageBundle bundle) {
-        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, null, false);
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, null, false, true);
     }
 
-    public WebMessageExtractor(MessageBundle bundle, File rootDir, boolean relativizeSrcRefPaths) {
-        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, rootDir, relativizeSrcRefPaths);
+    public WebMessageExtractor(MessageBundle bundle, File rootDir, boolean relativizeSrcRefPaths, boolean srcRefPaths) {
+        this(bundle, DEFAULT_MESSAGE_FUNCTIONS, rootDir, relativizeSrcRefPaths, srcRefPaths);
     }
 
     public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions) {
-        this(bundle, functions, null, false);
+        this(bundle, functions, null, false, true);
     }
 
-    public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions, File rootDir, boolean relativizeSrcRefPaths) {
-        super(XMLHelper.createXMLReader(), bundle, rootDir, relativizeSrcRefPaths);
+    public WebMessageExtractor(MessageBundle bundle, List<MessageFunction> functions, File rootDir, boolean relativizeSrcRefPaths, boolean srcRefPaths) {
+        super(XMLHelper.createXMLReader(), bundle, rootDir, relativizeSrcRefPaths, srcRefPaths);
         this.functions = functions;
     }
 

@@ -21,8 +21,9 @@ import org.objectweb.asm.tree.analysis.Value;
 import org.slf4j.LoggerFactory;
 
 import static org.objectweb.asm.Opcodes.*;
+import org.objectweb.asm.tree.InvokeDynamicInsnNode;
 
-public class ConstantTrackingInterpreter implements Interpreter {
+public class ConstantTrackingInterpreter extends Interpreter {
     private static final Logger log = LoggerFactory.getLogger(ConstantTrackingInterpreter.class);
     private static final Value NULL_VALUE = new ConstantNullValue();
     private static final Value INT_VALUE = new SimpleValue(Type.INT_TYPE);
@@ -36,8 +37,12 @@ public class ConstantTrackingInterpreter implements Interpreter {
     private Map<String, MessageFunction> functionByDesc;
     private ClassNode currentClass;
     private MethodNode currentMethod;
+    private boolean srcRefPaths;
 
-    public ConstantTrackingInterpreter(MessageBundle catalog, List<MessageFunction> functions) {
+
+    public ConstantTrackingInterpreter( MessageBundle catalog, List<MessageFunction> functions, boolean srcRefPaths ) {
+        super( 1 );
+        this.srcRefPaths = srcRefPaths;
         this.bundle = catalog;
         this.functionByDesc = new HashMap<String, MessageFunction>();
         for (MessageFunction function : functions) {
@@ -358,7 +363,7 @@ public class ConstantTrackingInterpreter implements Interpreter {
                 msg.setMsgidPlural(plural);
                 msg.addMsgstrPlural("", 0);
             }
-            if (sourceReference != null) {
+            if (srcRefPaths && sourceReference != null) {
                 msg.addSourceReference(sourceReference);
             }
             log.debug("Found message {}", msg);
@@ -370,9 +375,12 @@ public class ConstantTrackingInterpreter implements Interpreter {
     @Override
     public Value naryOperation(AbstractInsnNode insn, List values) throws AnalyzerException {
         int opcode = insn.getOpcode();
-        if (opcode == MULTIANEWARRAY) {
+        switch (opcode) {
+            case INVOKEDYNAMIC:
+            case MULTIANEWARRAY:
             return REFERENCE_VALUE;
-        } else {
+            default:
+            if (insn instanceof MethodInsnNode) {
             MethodInsnNode methodInsn = (MethodInsnNode) insn;
             String owner = methodInsn.owner;
             String name = methodInsn.name;
@@ -415,6 +423,9 @@ public class ConstantTrackingInterpreter implements Interpreter {
             }
 
             return newValue(Type.getReturnType(methodInsn.desc));
+            } else {
+                    return REFERENCE_VALUE;
+            }
         }
     }
 
@@ -424,7 +435,7 @@ public class ConstantTrackingInterpreter implements Interpreter {
 
     @Override
     public Value merge(Value v, Value w) {
-        if (!v.equals(w)) {
+        if (v == null || !v.equals( w )) {
             return UNINITIALIZED_VALUE;
         }
         return v;
