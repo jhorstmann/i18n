@@ -375,13 +375,11 @@ public class ConstantTrackingInterpreter extends Interpreter {
     @Override
     public Value naryOperation(AbstractInsnNode insn, List values) throws AnalyzerException {
         int opcode = insn.getOpcode();
-        if (opcode == MULTIANEWARRAY) {
+        switch (opcode) {
+            case INVOKEDYNAMIC:
+            case MULTIANEWARRAY:
             return REFERENCE_VALUE;
-        } else {
-//            TODO
-//            if( insn instanceof InvokeDynamicInsnNode) {
-//                InvokeDynamicInsnNode methodInsn = (InvokeDynamicInsnNode) insn;
-//            }
+            default:
             if (insn instanceof MethodInsnNode) {
             MethodInsnNode methodInsn = (MethodInsnNode) insn;
             String owner = methodInsn.owner;
@@ -426,7 +424,7 @@ public class ConstantTrackingInterpreter extends Interpreter {
 
             return newValue(Type.getReturnType(methodInsn.desc));
             } else {
-                return null;
+                    return REFERENCE_VALUE;
             }
         }
     }

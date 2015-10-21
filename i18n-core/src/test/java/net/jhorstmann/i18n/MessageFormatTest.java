@@ -1,7 +1,7 @@
 package net.jhorstmann.i18n;
 
-import com.ibm.icu.text.MessageFormat;
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Test;

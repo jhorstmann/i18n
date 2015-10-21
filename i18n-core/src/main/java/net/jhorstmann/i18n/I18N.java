@@ -1,6 +1,6 @@
 package net.jhorstmann.i18n;
 
-import com.ibm.icu.text.MessageFormat;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import org.slf4j.Logger;
