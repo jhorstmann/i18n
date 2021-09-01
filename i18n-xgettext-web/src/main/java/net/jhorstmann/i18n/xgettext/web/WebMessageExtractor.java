@@ -108,9 +108,9 @@ public class WebMessageExtractor extends AbstractExtractorHandler implements Mes
         try {
             xmlreader.parse(input);
         } catch (SAXException ex) {
-            throw new MessageExtractorException(ex);
+            throw new MessageExtractorException(input.getSystemId(), ex);
         } catch (ELException ex) {
-            throw new MessageExtractorException(ex);
+            throw new MessageExtractorException(input.getSystemId(), ex);
         }
     }
 }
