@@ -15,7 +15,7 @@ public class WebappGettextMojo extends AbstractGettextMojo {
     /**
      * Relativize the path for source-references to the project-root.
      * 
-     * @parameter expression="${relativizeSrcRefPaths}" default-value="false"
+     * @parameter property="relativizeSrcRefPaths" default-value="false"
      */
     protected boolean relativizeSrcRefPaths;
 

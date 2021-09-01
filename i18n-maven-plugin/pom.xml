@@ -70,4 +70,17 @@
             <version>2.5</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.5.2</version>
+                <configuration>
+                    <goalPrefix>i18n</goalPrefix>
+                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

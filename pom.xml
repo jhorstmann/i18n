@@ -52,7 +52,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <antlr.version>2.7.7</antlr.version>
         <jsf.version>2.1.2</jsf.version>
-        <project.build.javaVersion>1.6</project.build.javaVersion>
+        <project.build.javaVersion>1.8</project.build.javaVersion>
+        <asm.version>7.0</asm.version>
     </properties>
     <build>
         <pluginManagement>
@@ -275,8 +276,28 @@
             </dependency>
             <dependency>
                 <groupId>org.ow2.asm</groupId>
-                <artifactId>asm-all</artifactId>
-                <version>5.0.4</version>
+                <artifactId>asm</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-commons</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-util</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-tree</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-analysis</artifactId>
+                <version>${asm.version}</version>
             </dependency>
             <dependency>
                 <groupId>antlr</groupId>

@@ -30,6 +30,8 @@ import net.jhorstmann.i18n.tools.xgettext.MessageFunction;
 abstract class AbstractGettextMojo extends AbstractMojo {
 
     /**
+     * sourceDirectory
+     *
      * @parameter default-value="${project.build.sourceDirectory}"
      */
     File sourceDirectory;
@@ -62,11 +64,11 @@ abstract class AbstractGettextMojo extends AbstractMojo {
      */
     String[] poExcludes;
     /**
-     * @parameter default-value="${project.basedir}/src/main/po/keys.pot"
+     *  @parameter default-value="${project.basedir}/src/main/po/keys.pot"
      */
     File keysFile;
     /**
-     * @parameter default-value="${false}" expression="${gettext.update}"
+     * @parameter default-value="${false}" property="gettext.update"
      */
     boolean update;
     /**
@@ -82,36 +84,41 @@ abstract class AbstractGettextMojo extends AbstractMojo {
     /**
      * Report source-references
      *
-     * @parameter expression="${srcRefPaths}" default-value="true"
+     * @parameter property="srcRefPaths" default-value="true"
      */
     protected boolean srcRefPaths;
 
     /**
      * Skip this mojo.
      *
-     * @parameter expression="${skip}" default-value="false"
+     * @parameter property="skip" default-value="false"
      */
     protected boolean skip;
 
     /**
-     * @description E-Mail-address for message-bugs
-     * @parameter expression="${msgidBugsAddress}"
+     * E-Mail-address for message-bugs
+     *
+     * @parameter property="msgidBugsAddress"
      */
     protected String msgidBugsAddress;
 
     /**
-     * @description Name of the project/package
-     * @parameter expression="${pkgName}" default-value="${project.artifactId}"
+     * Name of the project/package
+     *
+     * @parameter property="pkgName" default-value="${project.artifactId}"
      */
     protected String pkgName;
 
     /**
-     * @description Version of the project/package
-     * @parameter expression="${pkgVersion}" default-value="${project.version}"
+     * Version of the project/package
+     *
+     * @parameter property="pkgVersion" default-value="${project.version}"
      */
     protected String pkgVersion;
 
-    /** @parameter default-value="${project}" */
+    /**
+     * @parameter default-value="${project}"
+     */
     protected org.apache.maven.project.MavenProject mavenProject;
 
     /**
@@ -120,7 +127,9 @@ abstract class AbstractGettextMojo extends AbstractMojo {
     protected File projectRoot;
 
     // Injection of the eclipse-buildcontext for m2e-compatibility
-    /** @component */
+    /**
+     * @component
+     **/
     protected BuildContext buildContext;
 
     AbstractGettextMojo() {

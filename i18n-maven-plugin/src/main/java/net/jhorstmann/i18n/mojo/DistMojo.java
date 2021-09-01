@@ -38,7 +38,9 @@ public class DistMojo extends AbstractGettextMojo {
      */
     protected String sourceLocale;
 
-    /** @parameter default-value="${project}" */
+    /**
+     * @parameter default-value="${project}"
+     * */
     private org.apache.maven.project.MavenProject mavenProject;
 
     private static String getLocale(File file) {
