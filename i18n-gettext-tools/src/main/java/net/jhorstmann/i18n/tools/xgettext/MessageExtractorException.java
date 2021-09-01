@@ -6,4 +6,8 @@ public class MessageExtractorException extends Exception {
         super(cause);
     }
     
+    public MessageExtractorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }
